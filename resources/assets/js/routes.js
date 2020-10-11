@@ -20,7 +20,9 @@ let routes = [
     },
     {
         path: '/posts/update',
-        component: require('./views/posts/update').default
+        name: 'posts/update',
+        component: require('./views/posts/update').default,
+        props: true
     }
 ];
 

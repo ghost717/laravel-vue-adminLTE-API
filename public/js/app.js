@@ -2511,6 +2511,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
+    console.log('ok');
     this.getPost();
   },
   props: {
@@ -38860,7 +38861,9 @@ var render = function() {
                 { staticClass: "border p-3" },
                 [
                   _vm._v(
-                    "\n                    " +
+                    "\n                    #" +
+                      _vm._s(post.id) +
+                      " - " +
                       _vm._s(post.title) +
                       "\n                    "
                   ),
@@ -38869,7 +38872,7 @@ var render = function() {
                     {
                       attrs: {
                         to: {
-                          name: "admin/posts/update",
+                          name: "posts/update",
                           params: { postId: post.id }
                         }
                       }
@@ -54969,7 +54972,9 @@ var routes = [{
   component: __webpack_require__(/*! ./views/posts/create */ "./resources/assets/js/views/posts/create.vue")["default"]
 }, {
   path: '/posts/update',
-  component: __webpack_require__(/*! ./views/posts/update */ "./resources/assets/js/views/posts/update.vue")["default"]
+  name: 'posts/update',
+  component: __webpack_require__(/*! ./views/posts/update */ "./resources/assets/js/views/posts/update.vue")["default"],
+  props: true
 }];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   base: '/admin/',

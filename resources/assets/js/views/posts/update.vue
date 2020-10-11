@@ -31,6 +31,7 @@
 <script>
     export default {
         mounted() {
+            console.log('ok');
             this.getPost();
         },
         props: {
