@@ -9,6 +9,10 @@ let routes = [
     {
         path: '/users',
         component: require('./views/users').default
+    },
+    {
+        path: '/posts',
+        component: require('./views/posts').default
     }
 ];
 

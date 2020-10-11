@@ -36,6 +36,12 @@
                         <p>Users</p>
                     </router-link>
                 </li>
+                <li class="nav-item">
+                    <router-link tag="a" to="/posts" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Posts</p>
+                    </router-link>
+                </li>
 
             </ul>
         </nav>
