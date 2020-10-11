@@ -35,7 +35,7 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required',
-            'user_id' => 'required',
+            // 'user_id' => 'required',
             'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
         ]);
 
@@ -51,7 +51,7 @@ class PostController extends Controller
             $post->image = $imagePath;
         }
 
-        $post->user_id = $request->user_id;
+        // $post->user_id = $request->user_id;
         $post->title = $request->title;
         $post->body = $request->body;
         $post->save();

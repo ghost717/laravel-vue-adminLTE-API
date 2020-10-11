@@ -13,6 +13,14 @@ let routes = [
     {
         path: '/posts',
         component: require('./views/posts').default
+    },
+    {
+        path: '/posts/create',
+        component: require('./views/posts/create').default
+    },
+    {
+        path: '/posts/update',
+        component: require('./views/posts/update').default
     }
 ];
 

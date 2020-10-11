@@ -26,7 +26,7 @@
                 <div id="posts">
                     <p class="border p-3" v-for="post in posts">
                         {{ post.title }}
-                        <router-link :to="{ name: 'update', params: { postId : post.id } }">
+                        <router-link :to="{ name: 'admin/posts/update', params: { postId : post.id } }">
                             <button type="button" class="p-1 mx-3 float-right btn btn-light">
                                 Update
                             </button>
