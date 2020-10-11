@@ -38,10 +38,10 @@
 <script>
     export default {
         props: {
-            // userId: {
-            //     type: Number,
-            //     required: true
-            // }
+            userId: {
+                type: Number,
+                required: true
+            }
         },
         data() {
             return {
@@ -55,7 +55,7 @@
                 const formData = new FormData();
                 formData.append("title", this.$refs.title.value);
                 formData.append("body", this.$refs.body.value);
-                // formData.append("user_id", this.userId);
+                formData.append("user_id", this.userId);
                 formData.append("image", this.$refs.image.files[0]);
                 //console.log(formData);
 

@@ -2426,10 +2426,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: {// userId: {
-    //     type: Number,
-    //     required: true
-    // }
+  props: {
+    userId: {
+      type: Number,
+      required: true
+    }
   },
   data: function data() {
     return {
@@ -2444,8 +2445,8 @@ __webpack_require__.r(__webpack_exports__);
 
       var formData = new FormData();
       formData.append("title", this.$refs.title.value);
-      formData.append("body", this.$refs.body.value); // formData.append("user_id", this.userId);
-
+      formData.append("body", this.$refs.body.value);
+      formData.append("user_id", this.userId);
       formData.append("image", this.$refs.image.files[0]); //console.log(formData);
 
       axios.post("/api/posts", formData).then(function (response) {
