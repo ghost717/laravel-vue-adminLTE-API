@@ -14,7 +14,7 @@
                 <img src="/images/AdminLTELogo.png" class="img-circle elevation-2" alt="User Image">
             </div>
             <div class="info">
-                <a class="d-block" href="/users/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a>
+                <a class="d-block" href="/admin/users/{{ Auth::user()->id }}">{{ Auth::user()->name }}</a>
             </div>
         </div>
 

@@ -31,6 +31,11 @@
                                 Update
                             </button>
                         </router-link>
+                        <router-link :to="{ name: 'posts/show', params: { postId : post.id } }">
+                            <button type="button" class="p-1 mx-3 float-right btn btn-light">
+                                show
+                            </button>
+                        </router-link>
                         <button
                             type="button"
                             @click="deletePost(post.id)"

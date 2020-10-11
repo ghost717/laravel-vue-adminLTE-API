@@ -1,5 +1,8 @@
 import VueRouter from 'vue-router';
 
+const User = {
+    template: '<div>User {{ $route.params.id }}</div>'
+}
 
 let routes = [
     {
@@ -11,8 +14,17 @@ let routes = [
         component: require('./views/users').default
     },
     {
+        path: '/users/:id', component: User
+    },
+    {
         path: '/posts',
         component: require('./views/posts').default
+    },
+    {
+        path: '/posts/show',
+        component: require('./views/post').default,
+        name: 'posts/show',
+        props: true
     },
     {
         path: '/posts/create',

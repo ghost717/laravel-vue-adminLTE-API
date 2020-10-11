@@ -31,7 +31,7 @@
 <script>
     export default {
         mounted() {
-            console.log('ok');
+            // console.log(this.postId);
             this.getPost();
         },
         props: {
