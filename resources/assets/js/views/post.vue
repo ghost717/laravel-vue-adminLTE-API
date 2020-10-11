@@ -24,11 +24,11 @@
             <div class="container-fluid">
 
                 <div id="post">
-                    <!-- #{{ post.id}} - {{ post.title }} -->
-                    <!-- <h2>{{ post.title }}</h2>
-                    <p>{{ post.body }}</p> -->
-                    {{this.postId}}
-                    {{ post.title }}
+                    #{{ post.id}} - {{ post.title }}
+                    <h2>{{ post.title }}</h2>
+                    <p>{{ post.body }}</p>
+                    <!-- {{this.postId}}
+                    {{ post.title }} -->
                 </div>
                 <!-- <form>
                     <div :class="['form-group m-1 p-3', successful ? 'alert-success' : '']">
@@ -67,7 +67,8 @@
 <script>
     export default {
         mounted() {
-            // console.log(this.postId);
+            console.log('das');
+            console.log(this.postId);
             this.getPost();
         },
         props: {
@@ -112,10 +113,6 @@
                     // this.$refs.body.value = response.data.data.body;
                     // this.post = response.data;
                     this.post = response.data.data;
-                    // console.log(this.post);
-                    // console.log(this.post.data.title)
-                    // console.log(response.data.data.title);
-                    // .then(({data}) => this.users = data);
                 });
             }
         }

@@ -2343,7 +2343,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
-    // console.log(this.postId);
+    console.log('das');
+    console.log(this.postId);
     this.getPost();
   },
   props: {
@@ -2390,10 +2391,7 @@ __webpack_require__.r(__webpack_exports__);
         // this.$refs.title.value = response.data.data.title;
         // this.$refs.body.value = response.data.data.body;
         // this.post = response.data;
-        _this2.post = response.data.data; // console.log(this.post);
-        // console.log(this.post.data.title)
-        // console.log(response.data.data.title);
-        // .then(({data}) => this.users = data);
+        _this2.post = response.data.data;
       });
     }
   }
@@ -38993,12 +38991,15 @@ var render = function() {
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { attrs: { id: "post" } }, [
           _vm._v(
-            "\n                " +
-              _vm._s(this.postId) +
-              "\n                " +
+            "\n                #" +
+              _vm._s(_vm.post.id) +
+              " - " +
               _vm._s(_vm.post.title) +
-              "\n            "
-          )
+              "\n                "
+          ),
+          _c("h2", [_vm._v(_vm._s(_vm.post.title))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(_vm.post.body))])
         ])
       ])
     ])
