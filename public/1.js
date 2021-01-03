@@ -186,6 +186,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "posts-list",
@@ -260,7 +261,7 @@ __webpack_require__.r(__webpack_exports__);
       console.log(data); // console.log(this.$refs.image.files[0]);
 
       this.$Progress.start();
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].create(data).then(function (response) {
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].createPost(data).then(function (response) {
         // this.form.id = response.data.id;
         // console.log(response.data);
         _this2.retrievePosts();
@@ -284,7 +285,7 @@ __webpack_require__.r(__webpack_exports__);
       data.append("image", this.form.image);
       console.log(this.form);
       this.$Progress.start();
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.form).then(function (response) {
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].updatePost(this.form).then(function (response) {
         // console.log(response.data);
         // this.message = 'The post was updated successfully!';
         _this3.retrievePosts();
@@ -300,7 +301,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       this.$Progress.start();
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].deletePost(id).then(function (response) {
         // console.log(response.data);
         // this.$router.push({ name: "posts" });
         _this4.retrievePosts();
@@ -336,7 +337,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this6 = this;
 
       this.$Progress.start();
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].findByTitle(this.search).then(function (response) {
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].findPost(this.search).then(function (response) {
         _this6.posts = response.data;
         console.log(response.data);
 
@@ -665,49 +666,58 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-body" }, [
-                    _c("div", { staticClass: "form-group" }, [
-                      _c(
-                        "select",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.form.user_id,
-                              expression: "form.user_id"
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c(
+                          "select",
+                          {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.form.user_id,
+                                expression: "form.user_id"
+                              }
+                            ],
+                            ref: "user_id",
+                            staticClass: "form-control",
+                            attrs: { name: "user_id", id: "user_id" },
+                            on: {
+                              change: function($event) {
+                                var $$selectedVal = Array.prototype.filter
+                                  .call($event.target.options, function(o) {
+                                    return o.selected
+                                  })
+                                  .map(function(o) {
+                                    var val = "_value" in o ? o._value : o.value
+                                    return val
+                                  })
+                                _vm.$set(
+                                  _vm.form,
+                                  "user_id",
+                                  $event.target.multiple
+                                    ? $$selectedVal
+                                    : $$selectedVal[0]
+                                )
+                              }
                             }
-                          ],
-                          ref: "user_id",
-                          staticClass: "form-control",
-                          attrs: { name: "user_id", id: "user_id" },
-                          on: {
-                            change: function($event) {
-                              var $$selectedVal = Array.prototype.filter
-                                .call($event.target.options, function(o) {
-                                  return o.selected
-                                })
-                                .map(function(o) {
-                                  var val = "_value" in o ? o._value : o.value
-                                  return val
-                                })
-                              _vm.$set(
-                                _vm.form,
-                                "user_id",
-                                $event.target.multiple
-                                  ? $$selectedVal
-                                  : $$selectedVal[0]
-                              )
-                            }
-                          }
-                        },
-                        _vm._l(_vm.authors, function(d) {
-                          return _c("option", { domProps: { value: d.id } }, [
-                            _vm._v(_vm._s(d.name))
-                          ])
-                        }),
-                        0
-                      )
-                    ]),
+                          },
+                          _vm._l(_vm.authors, function(d) {
+                            return _c("option", { domProps: { value: d.id } }, [
+                              _vm._v(_vm._s(d.name))
+                            ])
+                          }),
+                          0
+                        ),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "user_id" }
+                        })
+                      ],
+                      1
+                    ),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -1018,34 +1028,29 @@ var DataService = /*#__PURE__*/function () {
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get(address ? address : '/posts');
     }
   }, {
-    key: "get",
-    value: function get(id) {
+    key: "getPost",
+    value: function getPost(id) {
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/posts/".concat(id));
     }
   }, {
-    key: "create",
-    value: function create(data) {
+    key: "createPost",
+    value: function createPost(data) {
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].post('/posts', data);
     }
   }, {
-    key: "update",
-    value: function update(data) {
+    key: "updatePost",
+    value: function updatePost(data) {
       // return http.put(`/posts/${id}`, data);
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].put('/posts', data);
     }
   }, {
-    key: "delete",
-    value: function _delete(id) {
+    key: "deletePost",
+    value: function deletePost(id) {
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/posts/".concat(id));
     }
   }, {
-    key: "deleteAll",
-    value: function deleteAll() {
-      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]('/posts');
-    }
-  }, {
-    key: "findByTitle",
-    value: function findByTitle(title) {
+    key: "findPost",
+    value: function findPost(title) {
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/posts?title=".concat(title));
     }
   }]);

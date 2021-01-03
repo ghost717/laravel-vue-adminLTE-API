@@ -121,6 +121,7 @@
                                         <select name="user_id" v-model="form.user_id" ref="user_id" id="user_id" class="form-control">
                                             <option v-for="d in authors" :value="d.id">{{ d.name }}</option>
                                         </select>
+                                        <has-error :form="form" field="user_id"></has-error>
                                     </div>
                                     <div class="form-group">
                                         <input v-model="form.title" type="text" name="title" ref="title" placeholder="title" class="form-control" :class="{ 'is-invalid': form.errors.has('title') }">
@@ -250,7 +251,7 @@ export default {
             console.log(data);
             // console.log(this.$refs.image.files[0]);
             this.$Progress.start();
-            PostDataService.create(data)
+            PostDataService.createPost(data)
             .then(response => {
                 // this.form.id = response.data.id;
                 // console.log(response.data);
@@ -273,7 +274,7 @@ export default {
             console.log(this.form);
 
             this.$Progress.start();
-            PostDataService.update(this.form)
+            PostDataService.updatePost(this.form)
             .then(response => {
                 // console.log(response.data);
                 // this.message = 'The post was updated successfully!';
@@ -287,7 +288,7 @@ export default {
         },
         deletePost(id) {
             this.$Progress.start();
-            PostDataService.delete(id)
+            PostDataService.deletePost(id)
             .then(response => {
                 // console.log(response.data);
                 // this.$router.push({ name: "posts" });
@@ -321,7 +322,7 @@ export default {
         // },
         searchTitle() {
             this.$Progress.start();
-            PostDataService.findByTitle(this.search)
+            PostDataService.findPost(this.search)
             .then(response => {
                 this.posts = response.data;
                 console.log(response.data);

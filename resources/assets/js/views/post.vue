@@ -28,6 +28,7 @@
                             <!-- <h1>{{ post.title }}</h1> -->
                             <div class="form-group">
                                 <input type="text" class="form-control" id="title" name="title" v-model="post.title" placeholder="Title"/>
+                                <has-error :form="form" field="title"></has-error>
                             </div>
                         </div>
                         <div class="item__body card-body">
@@ -36,6 +37,7 @@
                                     <div class="form-group">
                                         <!-- <input type="text" class="form-control" id="body" name="body" v-model="post.body" placeholder="body"/> -->
                                         <textarea name="body" id="body" class="form-control" v-model="post.body">{{post.body}}</textarea>
+                                        <has-error :form="form" field="body"></has-error>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-4">
@@ -46,6 +48,7 @@
                                         </div>
                                     </div>
                                     <img v-bind:src="'../../storage/' + post.image" class="w-100 mt-5" />
+                                    <has-error :form="form" field="image"></has-error>
                                 </div>
                             </div>
                             <div class="row">
@@ -54,6 +57,7 @@
                                         <select name="user_id" v-model="post.user_id" ref="user_id" id="user_id" class="form-control">
                                             <option v-for="d in authors" :value="d.id">{{ d.name }}</option>
                                         </select>
+                                        <has-error :form="form" field="user_id"></has-error>
                                     </div>
                                 </div>
                                 <div class="col-12 col-sm-6">
@@ -123,7 +127,7 @@ export default {
         },
         getPost(id) {
             this.$Progress.start();
-            PostDataService.get(id)
+            PostDataService.getPost(id)
             .then(response => {
                 this.post = response.data.data;
                 this.$Progress.finish();

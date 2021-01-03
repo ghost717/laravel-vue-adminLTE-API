@@ -5,28 +5,24 @@ class DataService {
     return http.get(address ? address : '/posts');
   }
 
-  get(id) {
+  getPost(id) {
     return http.get(`/posts/${id}`);
   }
 
-  create(data) {
+  createPost(data) {
     return http.post('/posts', data);
   }
 
-  update(data) {
+  updatePost(data) {
     // return http.put(`/posts/${id}`, data);
     return http.put('/posts', data);
   }
 
-  delete(id) {
+  deletePost(id) {
     return http.delete(`/posts/${id}`);
   }
 
-  deleteAll() {
-    return http.delete('/posts');
-  }
-
-  findByTitle(title) {
+  findPost(title) {
     return http.get(`/posts?title=${title}`);
   }
 }
