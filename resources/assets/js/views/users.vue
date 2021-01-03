@@ -141,9 +141,11 @@
 
 
         created() {
+            this.$Progress.start();
             axios.get('/api/users').then(response => {
                 this.users = response.data.data;
                 // console.log(this.users);
+                this.$Progress.finish();
             });
         },
 
