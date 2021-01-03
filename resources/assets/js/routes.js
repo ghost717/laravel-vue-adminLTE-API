@@ -17,17 +17,17 @@ let routes = [
       path: "/",
       alias: "/posts",
       name: "posts",
-      component: () => import("./components/posts")
+      component: () => import("./views/posts")
     },
     {
       path: "/posts/:id",
       name: "post-details",
-      component: () => import("./components/post")
+      component: () => import("./views/post")
     },
     {
       path: "/posts/add",
       name: "add-post",
-      component: () => import("./components/addPost")
+      component: () => import("./views/addPost")
     }
     // {
     //     path: '/posts',
