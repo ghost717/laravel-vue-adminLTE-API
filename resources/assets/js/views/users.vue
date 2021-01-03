@@ -16,8 +16,7 @@
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
+        </div><!-- /.content-header -->
 
         <!-- Main content -->
         <div class="content">
@@ -142,8 +141,10 @@
 
 
         created() {
-            axios.get('/users')
-                .then(({data}) => this.users = data);
+            axios.get('/api/users').then(response => {
+                this.users = response.data.data;
+                // console.log(this.users);
+            });
         },
 
         methods: {

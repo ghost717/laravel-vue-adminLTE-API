@@ -2481,6 +2481,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   mounted: function mounted() {
     this.getPosts();
@@ -2833,7 +2850,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2849,9 +2865,8 @@ __webpack_require__.r(__webpack_exports__);
   created: function created() {
     var _this = this;
 
-    axios.get('/users').then(function (_ref) {
-      var data = _ref.data;
-      return _this.users = data;
+    axios.get('/api/users').then(function (response) {
+      _this.users = response.data.data; // console.log(this.users);
     });
   },
   methods: {
@@ -39059,92 +39074,128 @@ var render = function() {
     _vm._v(" "),
     _c("div", { staticClass: "content" }, [
       _c("div", { staticClass: "container-fluid" }, [
-        _c(
-          "div",
-          { attrs: { id: "posts" } },
-          [
-            _vm._l(_vm.posts, function(post) {
-              return _c(
-                "p",
-                { staticClass: "border p-3" },
+        _c("div", { staticClass: "col-12" }, [
+          _c("div", { staticClass: "card" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("div", { staticClass: "card-body table-responsive p-0" }, [
+              _c(
+                "table",
+                { staticClass: "table table-hover", attrs: { id: "posts" } },
                 [
-                  _vm._v(
-                    "\n                    #" +
-                      _vm._s(post.id) +
-                      " - " +
-                      _vm._s(post.title) +
-                      "\n                    "
-                  ),
-                  _c(
-                    "router-link",
-                    {
-                      attrs: {
-                        to: {
-                          name: "posts/update",
-                          params: { postId: post.id }
-                        }
-                      }
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "p-1 mx-3 float-right btn btn-light",
-                          attrs: { type: "button" }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            Update\n                        "
-                          )
-                        ]
-                      )
-                    ]
-                  ),
+                  _vm._m(2),
                   _vm._v(" "),
                   _c(
-                    "router-link",
-                    {
-                      attrs: {
-                        to: { name: "posts/show", params: { postId: post.id } }
-                      }
-                    },
-                    [
-                      _c(
-                        "button",
-                        {
-                          staticClass: "p-1 mx-3 float-right btn btn-light",
-                          attrs: { type: "button" }
-                        },
-                        [
-                          _vm._v(
-                            "\n                            show\n                        "
+                    "tbody",
+                    _vm._l(_vm.posts, function(post) {
+                      return _c("tr", [
+                        _c("td", { attrs: { scope: "row" } }, [
+                          _vm._v(_vm._s(post.id))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(post.title))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(post.body))]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("img", {
+                            staticClass: "card-img-top",
+                            attrs: {
+                              src: "/storage/" + post.image,
+                              alt: "Card image cap"
+                            }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                attrs: {
+                                  to: {
+                                    name: "posts/show",
+                                    params: { postId: post.id }
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "p-1 mx-3 float-right btn btn-success",
+                                    attrs: { type: "button" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                                Show\n                                            "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          [
+                            _c(
+                              "router-link",
+                              {
+                                attrs: {
+                                  to: {
+                                    name: "posts/update",
+                                    params: { postId: post.id }
+                                  }
+                                }
+                              },
+                              [
+                                _c(
+                                  "button",
+                                  {
+                                    staticClass:
+                                      "p-1 mx-3 float-right btn btn-warning",
+                                    attrs: { type: "button" }
+                                  },
+                                  [
+                                    _vm._v(
+                                      "\n                                                Update\n                                            "
+                                    )
+                                  ]
+                                )
+                              ]
+                            )
+                          ],
+                          1
+                        ),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "p-1 mx-3 float-right btn btn-danger",
+                              attrs: { type: "button" },
+                              on: {
+                                click: function($event) {
+                                  return _vm.deletePost(post.id)
+                                }
+                              }
+                            },
+                            [_vm._v("Delete")]
                           )
-                        ]
-                      )
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "button",
-                    {
-                      staticClass: "p-1 mx-3 float-right btn btn-danger",
-                      attrs: { type: "button" },
-                      on: {
-                        click: function($event) {
-                          return _vm.deletePost(post.id)
-                        }
-                      }
-                    },
-                    [
-                      _vm._v(
-                        "\n                        Delete\n                    "
-                      )
-                    ]
+                        ])
+                      ])
+                    }),
+                    0
                   )
-                ],
-                1
+                ]
               )
-            }),
+            ]),
             _vm._v(" "),
             _c("div", [
               _vm.next
@@ -39159,7 +39210,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n                    Next\n                    ")]
+                    [_vm._v("Next")]
                   )
                 : _vm._e(),
               _vm._v(" "),
@@ -39175,17 +39226,12 @@ var render = function() {
                         }
                       }
                     },
-                    [
-                      _vm._v(
-                        "\n                    Previous\n                    "
-                      )
-                    ]
+                    [_vm._v("Previous")]
                   )
                 : _vm._e()
             ])
-          ],
-          2
-        )
+          ])
+        ])
       ])
     ])
   ])
@@ -39205,7 +39251,9 @@ var staticRenderFns = [
           _c("div", { staticClass: "col-sm-6" }, [
             _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
               _c("li", { staticClass: "breadcrumb-item" }, [
-                _c("a", { attrs: { href: "#" } }, [_vm._v("Home")])
+                _c("a", { attrs: { href: "/admin/dashboard" } }, [
+                  _vm._v("Home")
+                ])
               ]),
               _vm._v(" "),
               _c("li", { staticClass: "breadcrumb-item active" }, [
@@ -39213,6 +39261,44 @@ var staticRenderFns = [
               ])
             ])
           ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "card-header" }, [
+      _c("h3", { staticClass: "card-title" }, [
+        _c("a", { attrs: { href: "/admin/posts/create" } }, [
+          _c(
+            "button",
+            { staticClass: "btn btn-primary", attrs: { type: "submit" } },
+            [_vm._v("Add Post")]
+          )
+        ])
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "card-tools" })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", { staticClass: "col-1" }, [_vm._v("ID")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "col-3" }, [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "col-3" }, [_vm._v("Body")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "col-1" }, [_vm._v("Thumb")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "col-2 text-right", attrs: { colspan: "3" } }, [
+          _vm._v("Actions")
         ])
       ])
     ])
