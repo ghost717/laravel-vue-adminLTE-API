@@ -41,8 +41,11 @@
                         <i class="nav-icon fas fa-th"></i>
                         <p>Posts</p>
                     </router-link>
-                    {{-- <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
+                    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="true">
                         <li class="nav-item">
+                            <router-link to="/posts/add" class="nav-link">Add</router-link>
+                        </li>
+                        {{-- <li class="nav-item">
                             <router-link tag="a" to="/posts/create" class="nav-link">
                                 <p>Posts create</p>
                             </router-link>
@@ -51,8 +54,8 @@
                             <router-link tag="a" to="/posts/update" class="nav-link">
                                 <p>Posts update</p>
                             </router-link>
-                        </li>
-                    </ul> --}}
+                        </li> --}}
+                    </ul>
                 </li>
 
             </ul>

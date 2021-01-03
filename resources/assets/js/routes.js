@@ -1,8 +1,8 @@
 import VueRouter from 'vue-router';
 
-const User = {
-    template: '<div>User {{ $route.params.id }}</div>'
-}
+// const User = {
+//     template: '<div>User {{ $route.params.id }}</div>'
+// }
 
 let routes = [
     {
@@ -14,28 +14,41 @@ let routes = [
         component: require('./views/users').default
     },
     {
-        path: '/users/:id', component: User
+      path: "/",
+      alias: "/posts",
+      name: "posts",
+      component: () => import("./components/posts")
     },
     {
-        path: '/posts',
-        component: require('./views/posts').default
+      path: "/posts/:id",
+      name: "post-details",
+      component: () => import("./components/post")
     },
     {
-        path: '/posts/show',
-        component: require('./views/post').default,
-        name: 'posts/show',
-        props: true
-    },
-    {
-        path: '/posts/create',
-        component: require('./views/posts/create').default
-    },
-    {
-        path: '/posts/update',
-        name: 'posts/update',
-        component: require('./views/posts/update').default,
-        props: true
+      path: "/posts/add",
+      name: "add-post",
+      component: () => import("./components/addPost")
     }
+    // {
+    //     path: '/posts',
+    //     component: require('./views/posts').default
+    // },
+    // {
+    //     path: '/posts/show',
+    //     component: require('./views/post').default,
+    //     name: 'posts/show',
+    //     props: true
+    // },
+    // {
+    //     path: '/posts/create',
+    //     component: require('./views/posts/create').default
+    // },
+    // {
+    //     path: '/posts/update',
+    //     name: 'posts/update',
+    //     component: require('./views/posts/update').default,
+    //     props: true
+    // }
 ];
 
 
