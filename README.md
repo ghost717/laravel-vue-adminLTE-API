@@ -37,7 +37,11 @@
 
 #### TODOS
 
-- wyszukiwarka
 - ikonki
+- alerty
+- post status
+- users & user view
+- tasks full
+- wyszukiwarka
 - widok pojedynczego wpisu
 - upload obrazkow
