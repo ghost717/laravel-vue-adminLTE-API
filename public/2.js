@@ -213,14 +213,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "posts-list",
   data: function data() {
     return {
       posts: [],
-      currentPost: null,
-      currentIndex: -1,
+      // currentPost: null,
+      // currentIndex: -1,
       search: "",
       editMode: false,
       next: null,
@@ -247,17 +249,18 @@ __webpack_require__.r(__webpack_exports__);
       this.form.id = post.id;
       this.form.user_id = post.user_id;
       this.form.title = post.title;
-      this.form.body = post.body; // this.form.image = post.image;
+      this.form.body = post.body;
+      this.form.image = this.$refs.image.files[0]; //post.image;
     },
     savePost: function savePost() {
       var _this = this;
 
-      var data = {
-        title: this.form.title,
-        body: this.form.body,
-        user_id: this.form.user_id,
-        image: this.$refs.image.files[0]
-      }; // console.log(data);
+      var data = new FormData();
+      data.append("title", this.form.title);
+      data.append("body", this.form.body);
+      data.append("user_id", this.form.user_id);
+      data.append("image", this.$refs.image.files[0]);
+      console.log(data); // console.log(this.$refs.image.files[0]);
 
       this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].create(data).then(function (response) {
@@ -275,6 +278,13 @@ __webpack_require__.r(__webpack_exports__);
     updatePost: function updatePost() {
       var _this2 = this;
 
+      var data = new FormData();
+      data.append("id", this.form.id);
+      data.append("title", this.form.title);
+      data.append("body", this.form.body);
+      data.append("user_id", this.form.user_id);
+      data.append("image", this.$refs.image.files[0]);
+      console.log(data);
       this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.form.id, this.form).then(function (response) {
         // console.log(response.data);
@@ -306,30 +316,14 @@ __webpack_require__.r(__webpack_exports__);
       var _this4 = this;
 
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].getAll().then(function (response) {
-        _this4.posts = response.data.data;
-        console.log(response.data);
+        _this4.posts = response.data.data; // console.log(response.data);
       })["catch"](function (e) {
         console.log(e);
       });
     },
-    setActivePost: function setActivePost(post, index) {
-      this.currentPost = post;
-      this.currentIndex = index;
-    },
-    // refreshList() {
-    //     this.retrievePosts();
-    //     this.currentPost = null;
-    //     this.currentIndex = -1;
-    // },
-    // removeAllPosts() {
-    //     PostDataService.deleteAll()
-    //     .then(response => {
-    //         console.log(response.data);
-    //         this.refreshList();
-    //     })
-    //     .catch(e => {
-    //         console.log(e);
-    //     });
+    // setActivePost(post, index) {
+    //     this.currentPost = post;
+    //     this.currentIndex = index;
     // },
     searchTitle: function searchTitle() {
       var _this5 = this;
@@ -490,6 +484,18 @@ var render = function() {
                                 "a",
                                 {
                                   staticClass: "m-1 d-block float-right",
+                                  attrs: {
+                                    href: "/admin/posts/" + post.id,
+                                    "data-id": "post.id"
+                                  }
+                                },
+                                [_vm._m(2, true)]
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "a",
+                                {
+                                  staticClass: "m-1 d-block float-right",
                                   attrs: { href: "#", "data-id": "post.id" },
                                   on: {
                                     click: function($event) {
@@ -497,7 +503,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._m(2, true)]
+                                [_vm._m(3, true)]
                               ),
                               _vm._v(" "),
                               _c(
@@ -511,7 +517,7 @@ var render = function() {
                                     }
                                   }
                                 },
-                                [_vm._m(3, true)]
+                                [_vm._m(4, true)]
                               )
                             ]
                           )
@@ -524,7 +530,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(4)
+            _vm._m(5)
           ])
         ])
       ])
@@ -586,7 +592,7 @@ var render = function() {
                   [_vm._v("Update post")]
                 ),
                 _vm._v(" "),
-                _vm._m(5)
+                _vm._m(6)
               ]),
               _vm._v(" "),
               _c(
@@ -825,6 +831,23 @@ var staticRenderFns = [
         ])
       ])
     ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "btn btn-sm btn-primary  d-flex align-items-center justify-content-between",
+        attrs: { type: "button" }
+      },
+      [
+        _vm._v("\n                                                  Show "),
+        _c("i", { staticClass: "fas fa-loop" })
+      ]
+    )
   },
   function() {
     var _vm = this

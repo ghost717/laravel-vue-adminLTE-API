@@ -58,15 +58,17 @@
                                         <td class="col">{{post.author.name}}</td>
                                         <td class="col">{{post.created_at}}</td>
                                         <td class="col buttons d-flex justify-content-end align-posts-center">
-                                            <!--
-                                             <router-link:to="{ name: 'posts/show', params: { postId : post.id } }" :class="m-1 d-block float-right">
+
+                                             <!-- <router-link:to="{ name: 'posts/show', params: { postId : post.id } }" :class="m-1 d-block float-right">
                                                 <button type="button" class="btn btn-sm btn-success  d-flex align-items-center justify-content-between">
                                                     Show <i class="fas fa-loop"></i>
                                                 </button>
-                                            </router-link>
-                                            <a href="#" class="m-1 d-block float-right" data-id="post.id"  data-target="#addNew" @click="openModalWindow">
-
-                                            </a> -->
+                                            </router-link> -->
+                                            <a :href="'/admin/posts/' + post.id" class="m-1 d-block float-right" data-id="post.id">
+                                                <button type="button" class="btn btn-sm btn-primary  d-flex align-items-center justify-content-between">
+                                                    Show <i class="fas fa-loop"></i>
+                                                </button>
+                                            </a>
                                             <a href="#" class="m-1 d-block float-right" data-id="post.id" @click="editModalWindow(post)">
                                                 <button type="button" class="btn btn-sm btn-warning text-light d-flex align-items-center justify-content-between">
                                                     Update <i class="fa fa-edit"></i>
@@ -209,8 +211,8 @@ export default {
     data() {
         return {
             posts: [],
-            currentPost: null,
-            currentIndex: -1,
+            // currentPost: null,
+            // currentIndex: -1,
             search: "",
             editMode: false,
             next: null,
@@ -238,16 +240,17 @@ export default {
             this.form.user_id = post.user_id;
             this.form.title = post.title;
             this.form.body = post.body;
-            // this.form.image = post.image;
+            this.form.image = this.$refs.image.files[0];//post.image;
         },
         savePost() {
-            var data = {
-                title: this.form.title,
-                body: this.form.body,
-                user_id: this.form.user_id,
-                image: this.$refs.image.files[0],
-            };
-            // console.log(data);
+            const data = new FormData();
+            data.append("title", this.form.title);
+            data.append("body", this.form.body);
+            data.append("user_id", this.form.user_id);
+            data.append("image", this.$refs.image.files[0]);
+
+            console.log(data);
+            // console.log(this.$refs.image.files[0]);
             this.$Progress.start();
             PostDataService.create(data)
             .then(response => {
@@ -262,6 +265,13 @@ export default {
             });
         },
         updatePost() {
+            const data = new FormData();
+            data.append("id", this.form.id);
+            data.append("title", this.form.title);
+            data.append("body", this.form.body);
+            data.append("user_id", this.form.user_id);
+            data.append("image", this.$refs.image.files[0]);
+            console.log(data);
             this.$Progress.start();
             PostDataService.update(this.form.id, this.form)
             .then(response => {
@@ -292,31 +302,15 @@ export default {
             PostDataService.getAll()
             .then(response => {
                 this.posts = response.data.data;
-                console.log(response.data);
+                // console.log(response.data);
             })
             .catch(e => {
                 console.log(e);
             });
         },
-        setActivePost(post, index) {
-            this.currentPost = post;
-            this.currentIndex = index;
-        },
-
-                                // refreshList() {
-                                //     this.retrievePosts();
-                                //     this.currentPost = null;
-                                //     this.currentIndex = -1;
-                                // },
-        // removeAllPosts() {
-        //     PostDataService.deleteAll()
-        //     .then(response => {
-        //         console.log(response.data);
-        //         this.refreshList();
-        //     })
-        //     .catch(e => {
-        //         console.log(e);
-        //     });
+        // setActivePost(post, index) {
+        //     this.currentPost = post;
+        //     this.currentIndex = index;
         // },
         searchTitle() {
             PostDataService.findByTitle(this.search)
