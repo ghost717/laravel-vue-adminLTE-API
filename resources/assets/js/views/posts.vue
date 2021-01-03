@@ -216,6 +216,7 @@ export default {
             });
         },
         savePost() {
+            this.$Progress.start();
             const data = new FormData();
             data.append("title", this.form.title);
             data.append("body", this.form.body);
@@ -230,8 +231,8 @@ export default {
                 // this.form.id = response.data.id;
                 // console.log(response.data);
                 this.retrievePosts();
-                this.$Progress.finish();
                 $('#addNew').modal('hide');
+                this.$Progress.finish();
             })
             .catch(e => {
                 console.log(e);
@@ -251,8 +252,8 @@ export default {
                 // console.log(response.data);
                 // this.message = 'The post was updated successfully!';
                 this.retrievePosts();
-                this.$Progress.finish();
                 $('#addNew').modal('hide');
+                this.$Progress.finish();
             })
             .catch(e => {
                 console.log(e);
@@ -272,12 +273,13 @@ export default {
             });
         },
         retrievePosts(address) {
+            this.$Progress.start();
             PostDataService.getAllPosts(address)
             .then(response => {
                 this.posts = response.data.data;
                 this.prev = response.data.links.prev;
                 this.next = response.data.links.next;
-
+                this.$Progress.finish();
                 // console.log(response.data.links);
             })
             .catch(e => {
@@ -292,10 +294,12 @@ export default {
         //     this.currentIndex = index;
         // },
         searchTitle() {
+            this.$Progress.start();
             PostDataService.findByTitle(this.search)
             .then(response => {
                 this.posts = response.data;
                 console.log(response.data);
+                this.$Progress.finish();
             })
             .catch(e => {
                 console.log(e);

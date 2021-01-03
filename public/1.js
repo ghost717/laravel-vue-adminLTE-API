@@ -230,6 +230,7 @@ __webpack_require__.r(__webpack_exports__);
     savePost: function savePost() {
       var _this2 = this;
 
+      this.$Progress.start();
       var data = new FormData();
       data.append("title", this.form.title);
       data.append("body", this.form.body);
@@ -243,9 +244,9 @@ __webpack_require__.r(__webpack_exports__);
         // console.log(response.data);
         _this2.retrievePosts();
 
-        _this2.$Progress.finish();
-
         $('#addNew').modal('hide');
+
+        _this2.$Progress.finish();
       })["catch"](function (e) {
         console.log(e);
       });
@@ -266,9 +267,9 @@ __webpack_require__.r(__webpack_exports__);
         // this.message = 'The post was updated successfully!';
         _this3.retrievePosts();
 
-        _this3.$Progress.finish();
-
         $('#addNew').modal('hide');
+
+        _this3.$Progress.finish();
       })["catch"](function (e) {
         console.log(e);
       });
@@ -290,10 +291,14 @@ __webpack_require__.r(__webpack_exports__);
     retrievePosts: function retrievePosts(address) {
       var _this5 = this;
 
+      this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].getAllPosts(address).then(function (response) {
         _this5.posts = response.data.data;
         _this5.prev = response.data.links.prev;
-        _this5.next = response.data.links.next; // console.log(response.data.links);
+        _this5.next = response.data.links.next;
+
+        _this5.$Progress.finish(); // console.log(response.data.links);
+
       })["catch"](function (e) {
         console.log(e);
       });
@@ -308,9 +313,12 @@ __webpack_require__.r(__webpack_exports__);
     searchTitle: function searchTitle() {
       var _this6 = this;
 
+      this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].findByTitle(this.search).then(function (response) {
         _this6.posts = response.data;
         console.log(response.data);
+
+        _this6.$Progress.finish();
       })["catch"](function (e) {
         console.log(e);
       });

@@ -109,6 +109,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "post",
@@ -130,8 +136,11 @@ __webpack_require__.r(__webpack_exports__);
     getPost: function getPost(id) {
       var _this2 = this;
 
+      this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].get(id).then(function (response) {
         _this2.post = response.data.data;
+
+        _this2.$Progress.finish();
       })["catch"](function (e) {
         console.log(e);
       });
@@ -139,6 +148,7 @@ __webpack_require__.r(__webpack_exports__);
     updatePublished: function updatePublished(status) {
       var _this3 = this;
 
+      this.$Progress.start();
       var data = {
         id: this.post.id,
         title: this.post.title,
@@ -148,6 +158,8 @@ __webpack_require__.r(__webpack_exports__);
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.post.id, data).then(function (response) {
         _this3.post.published = status;
         console.log(response.data);
+
+        _this3.$Progress.finish();
       })["catch"](function (e) {
         console.log(e);
       });
@@ -155,9 +167,12 @@ __webpack_require__.r(__webpack_exports__);
     updatePost: function updatePost() {
       var _this4 = this;
 
+      this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.post.id, this.post).then(function (response) {
         // console.log(response.data);
         _this4.message = 'The post was updated successfully!';
+
+        _this4.$Progress.finish();
       })["catch"](function (e) {
         console.log(e);
       });
@@ -165,8 +180,11 @@ __webpack_require__.r(__webpack_exports__);
     deletePost: function deletePost() {
       var _this5 = this;
 
+      this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](this.post.id).then(function (response) {
         // console.log(response.data);
+        _this5.$Progress.finish();
+
         _this5.$router.push({
           name: "posts"
         });
@@ -200,7 +218,21 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _vm._m(0),
+    _c("div", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("h1", { staticClass: "m-0 text-dark" }, [
+              _vm._v(
+                "#" + _vm._s(_vm.post.id) + " - " + _vm._s(_vm.post.title) + " "
+              )
+            ])
+          ]),
+          _vm._v(" "),
+          _vm._m(0)
+        ])
+      ])
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "content" }, [
       _c("div", { staticClass: "container-fluid" }, [
@@ -238,33 +270,62 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "item__body card-body" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.post.body,
-                      expression: "post.body"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: {
-                    type: "text",
-                    id: "body",
-                    name: "body",
-                    placeholder: "body"
-                  },
-                  domProps: { value: _vm.post.body },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(_vm.post, "body", $event.target.value)
-                    }
-                  }
-                })
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12 col-sm-8" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "textarea",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.post.body,
+                            expression: "post.body"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { name: "body", id: "body" },
+                        domProps: { value: _vm.post.body },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.post, "body", $event.target.value)
+                          }
+                        }
+                      },
+                      [_vm._v(_vm._s(_vm.post.body))]
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12 col-sm-4" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("div", { staticClass: "custom-file mb-3" }, [
+                      _c("input", {
+                        ref: "image",
+                        staticClass: "custom-file-input",
+                        attrs: {
+                          type: "file",
+                          name: "image",
+                          id: "image",
+                          required: ""
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("label", { staticClass: "custom-file-label" }, [
+                        _vm._v("Choose file...")
+                      ])
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("img", {
+                    staticClass: "w-100 mt-5",
+                    attrs: { src: "../../storage/" + _vm.post.image }
+                  })
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "row" }, [
@@ -419,25 +480,13 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "content-header" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row mb-2" }, [
-          _c("div", { staticClass: "col-sm-6" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-              _c("li", { staticClass: "breadcrumb-item" }, [
-                _c("a", { attrs: { href: "/admin/dashboard" } }, [
-                  _vm._v("Home")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", { staticClass: "breadcrumb-item active" }, [
-                _vm._v("Posts")
-              ])
-            ])
-          ])
-        ])
+    return _c("div", { staticClass: "col-sm-6" }, [
+      _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+        _c("li", { staticClass: "breadcrumb-item" }, [
+          _c("a", { attrs: { href: "/admin/dashboard" } }, [_vm._v("Home")])
+        ]),
+        _vm._v(" "),
+        _c("li", { staticClass: "breadcrumb-item active" }, [_vm._v("Posts")])
       ])
     ])
   },
