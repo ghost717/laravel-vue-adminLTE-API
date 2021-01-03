@@ -1,30 +1,56 @@
 import http from "../http-common";
 
 class DataService {
-  getAllPosts(address) {
-    return http.get(address ? address : '/posts');
-  }
+    //users
+    getAllUsers(address) {
+        return http.get(address ? address : '/users');
+    }
 
-  getPost(id) {
-    return http.get(`/posts/${id}`);
-  }
+    getUser(id) {
+        return http.get(`/users/${id}`);
+    }
 
-  createPost(data) {
-    return http.post('/posts', data);
-  }
+    createUser(data) {
+        return http.post('/users', data);
+    }
 
-  updatePost(data) {
-    // return http.put(`/posts/${id}`, data);
-    return http.put('/posts', data);
-  }
+    updateUser(data) {
+        return http.put('/users', data);
+    }
 
-  deletePost(id) {
-    return http.delete(`/posts/${id}`);
-  }
+    deleteUser(id) {
+        return http.delete(`/users/${id}`);
+    }
 
-  findPost(title) {
-    return http.get(`/posts?title=${title}`);
-  }
+    findUser(title) {
+        return http.get(`/users?title=${title}`);
+    }
+
+    //posts
+    getAllPosts(address) {
+        return http.get(address ? address : '/posts');
+    }
+
+    getPost(id) {
+        return http.get(`/posts/${id}`);
+    }
+
+    createPost(data) {
+        return http.post('/posts', data);
+    }
+
+    updatePost(data) {
+        // return http.put(`/posts/${id}`, data);
+        return http.put('/posts', data);
+    }
+
+    deletePost(id) {
+        return http.delete(`/posts/${id}`);
+    }
+
+    findPost(title) {
+        return http.get(`/posts?title=${title}`);
+    }
 }
 
 export default new DataService();

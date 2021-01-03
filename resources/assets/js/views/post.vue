@@ -145,7 +145,7 @@ export default {
                 published: status
             };
 
-            PostDataService.update(this.post.id, data)
+            PostDataService.updatePost(this.post.id, data)
             .then(response => {
                 this.post.published = status;
                 console.log(response.data);
@@ -165,7 +165,7 @@ export default {
             console.log(this.form);
 
             this.$Progress.start();
-            PostDataService.update(this.post.id, this.post)
+            PostDataService.updatePost(this.post)
             .then(response => {
                 // console.log(response.data);
                 this.message = 'The post was updated successfully!';
@@ -177,7 +177,7 @@ export default {
         },
         deletePost() {
             this.$Progress.start();
-            PostDataService.delete(this.post.id)
+            PostDataService.deletePost(this.post.id)
             .then(response => {
                 // console.log(response.data);
                 this.$Progress.finish();

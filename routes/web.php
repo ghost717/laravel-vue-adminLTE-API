@@ -32,8 +32,8 @@ Route::prefix('api')->group(function () { //for dev
     // Route::delete('posts', 'PostController@destroy');
 
     Route::get('users', 'UsersController@index');
-    Route::get('user/{id}', 'UsersController@show');
-    Route::post('user', 'UsersController@store');
-    Route::put('user', 'UsersController@store');
-    Route::delete('user/{id}', 'UsersController@destroy');
+    Route::get('users/{id}', 'UsersController@show');
+    Route::post('users', 'UsersController@store');
+    Route::put('users', 'UsersController@store');
+    Route::delete('users/{id}', 'UsersController@destroy');
 });

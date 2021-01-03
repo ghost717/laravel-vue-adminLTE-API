@@ -18,6 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('posts', 'PostController');
+Route::apiResource('users', 'UsersController');
 
 // Route::get('posts', 'PostController@index');
 // Route::get('posts/{id}', 'PostController@show');
@@ -25,8 +26,8 @@ Route::apiResource('posts', 'PostController');
 // Route::put('posts', 'PostController@store');
 // Route::delete('posts/{id}', 'PostController@destroy');
 
-Route::get('users', 'UsersController@index');
-Route::get('user/{id}', 'UsersController@show');
-Route::post('user', 'UsersController@store');
-Route::put('user', 'UsersController@store');
-Route::delete('user/{id}', 'UsersController@destroy');
+// Route::get('users', 'UsersController@index');
+// Route::get('user/{id}', 'UsersController@show');
+// Route::post('user', 'UsersController@store');
+// Route::put('user', 'UsersController@store');
+// Route::delete('user/{id}', 'UsersController@destroy');

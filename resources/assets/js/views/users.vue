@@ -1,16 +1,24 @@
 <template>
-
     <div>
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
+        <div class="content-header"><!-- Content Header (Page header) -->
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Users</h1>
+                        <!-- <h1 class="m-0 text-dark">Users</h1>
+
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Search by title" v-model="search"/>
+                            <div class="input-group-append">
+                                <button class="btn btn-outline-secondary" type="button" @click="searchTitle" > Search </button>
+                            </div>
+                        </div> -->
                     </div><!-- /.col -->
                     <div class="col-sm-6">
+                        <!-- <div class="card-tools">
+                                        <button class="btn btn-success" data-toggle="modal" data-target="#addNew" @click="openModalWindow">Add new <i class="fas fa-plus-square"></i></button>
+                                    </div> -->
                         <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/admin/dashboard">Home</a></li>
                             <li class="breadcrumb-item active">Users</li>
                         </ol>
                     </div><!-- /.col -->
@@ -18,145 +26,233 @@
             </div><!-- /.container-fluid -->
         </div><!-- /.content-header -->
 
-        <!-- Main content -->
-        <div class="content">
-
+        <div class="content"><!-- Main content -->
             <div class="container-fluid">
 
-                <div class="row">
+                <div class="items">
+                    <div class="card">
+                        <div class="items__header card-header d-flex align-items-baseline justify-content-between">
+                            <h1 class="m-0 text-dark">Users</h1>
 
-                    <div class="col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h3 class="card-title">:)</h3>
-
-                                <div class="card-tools">
-                                    <div class="input-group input-group-sm" style="width: 150px;">
-                                        <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                        <div class="input-group-append">
-                                            <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                        </div>
-                                    </div>
-                                </div>
+                            <div class="input-group mb-3">
+                                <!-- <input type="text" class="form-control" placeholder="Search by title" v-model="search"/> -->
+                                <!-- <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" @click="searchTitle" > Search </button>
+                                </div> -->
                             </div>
-                            <!-- /.card-header -->
-                            <div class="card-body table-responsive p-0" style="height: 300px;">
-                                <table class="table table-hover">
-                                    <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>User</th>
-                                        <th>Email</th>
+                            <div class="card-tools">
+                                <button class="btn btn-success" data-toggle="modal" data-target="#addNew" @click="openModalWindow">Add new <i class="fas fa-plus-square"></i></button>
+                            </div>
+                        </div><!-- /.card-header -->
+                        <div class="items__body card-body">
+                            <table id="users" class="table table-hover">
+                                <thead class="thead">
+                                    <tr class="row">
+                                        <th class="col border-0">ID</th>
+                                        <th class="col border-0">Name</th>
+                                        <th class="col border-0">Email</th>
+                                        <!-- <th class="col border-0">Password</th> -->
+                                        <th class="col border-0">Created</th>
+                                        <th class="col text-right d-none d-sm-block border-0">Actions</th>
                                     </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr v-for="user in users">
-                                        <td>{{user.id}}</td>
-                                        <td>{{user.name}}</td>
-                                        <td>{{user.email}}</td>
+                                </thead>
+                                <tbody>
+                                    <tr class="row" v-for="(user, index) in users" :key="index">
+                                    <!-- <router-link v-for="(user, index) in users" :to="{ name: 'user-details', params: { id: user.id } }" tag="tr"> -->
+                                        <td class="col" scope="row">{{user.id}}</td>
+                                        <td class="col">{{user.name}}</td>
+                                        <td class="col">{{user.email}}</td>
+                                        <!-- <td class="col">{{user.password}}</td> -->
+                                        <td class="col">{{user.created_at}}</td>
+                                        <td class="col items__body__buttons d-flex justify-content-end align-items-start">
+                                            <!-- <a :href="'/admin/users/' + user.id" class="m-1 d-block float-right" data-id="user.id"> -->
+                                            <router-link :to="{ name: 'user-details', params: { id: user.id } }" class="m-1 d-block float-right">
+                                                <button type="button" class="btn btn-sm btn-primary  d-flex align-items-center justify-content-between">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </router-link>
+                                            <!-- </a> -->
+                                            <a href="#" class="m-1 d-block float-right" data-id="user.id" @click="editModalWindow(user)">
+                                                <button type="button" class="btn btn-sm btn-warning text-light d-flex align-items-center justify-content-between">
+                                                    <i class="fa fa-edit"></i>
+                                                </button>
+                                            </a>
+                                            <a href="#" class="m-1 d-block float-right" data-id="user.id" @click="deleteUser(user.id)">
+                                                <button type="button" class="btn btn-sm btn-danger d-flex align-items-center justify-content-between">
+                                                    <i class="fas fa-trash"></i>
+                                                </button>
+                                            </a>
+                                        </td>
+                                    <!-- </router-link> -->
                                     </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                            <!-- /.card-body -->
-                        </div>
-                        <!-- /.card -->
-                    </div>
-
-                    <div class="col-lg-6">
-
-                        <div class="card card-info">
-                            <div class="card-header">
-                                <h3 class="card-title">New User Form</h3>
-                            </div>
-                            <!-- /.card-header -->
-                            <!-- form start -->
-                            <form class="form-horizontal" @submit.prevent="onSubmit" @keydown="form.errors.clear()">
-                                <div class="card-body" style="height: 239px;">
-                                    <div class="form-group row">
-                                        <label for="name" class="col-sm-2 col-form-label">Name</label>
-                                        <div class="col-sm-10">
-                                            <input type="text" class="form-control" id="name" name="name" required autocomplete="name" autofocus placeholder="Name" v-model="form.name">
-                                            <span class="invalid-feedback d-block" role="alert" v-if="form.errors.has('name')" v-text="form.errors.get('name')"></span>
-                                        </div>
-                                    </div>
-                                    <div class="form-group row">
-                                            <label for="inputEmail3" class="col-sm-2 col-form-label">Email</label>
-                                            <div class="col-sm-10">
-                                                <input type="text" class="form-control" id="inputEmail3" placeholder="Email" v-model="form.email" required>
-                                                <span class="invalid-feedback d-block" role="alert" v-if="form.errors.has('email')" v-text="form.errors.get('email')"></span>
-                                            </div>
-
-                                        </div>
-
-                                    <div class="form-group row">
-
-                                        <label for="password" class="col-sm-2 col-form-label">Password</label>
-                                        <div class="col-sm-10">
-                                            <input type="password" class="form-control" id="password" placeholder="Password" v-model="form.password" required>
-                                            <span class="invalid-feedback d-block" role="alert" v-if="form.errors.has('password')" v-text="form.errors.get('password')"></span>
-                                        </div>
-                                    </div>
+                                </tbody>
+                            </table>
+                        </div><!-- /.card-body -->
+                        <div class="card-tools row">
+                            <div class="col-12">
+                                <div class="d-flex justify-content-start align-users-center">
+                                    <button v-if="next" type="button" @click="navigate(next)" class="m-2 btn btn-primary">Next</button>
+                                    <button v-if="prev" type="button" @click="navigate(prev)" class="m-2 btn btn-primary">Previous</button>
                                 </div>
-                                <!-- /.card-body -->
-                                <div class="card-footer">
-                                    <button type="submit" class="btn btn-info" :disabled="form.errors.any()">Add User</button>
-                                </div>
-                                <!-- /.card-footer -->
-                            </form>
+                            </div>
                         </div>
-
-                    </div>
-
+                    </div><!-- /.card -->
                 </div>
 
             </div>
-            <!-- /.container-fluid -->
+        </div> <!-- content -->
 
-        </div>
-        <!-- /.content -->
+                <div class="modal fade" id="addNew" tabindex="-1" role="dialog" aria-labelledby="addNewLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h5 v-show="!editMode" class="modal-title" id="addNewLabel">Add New user</h5>
+                                <h5 v-show="editMode" class="modal-title" id="addNewLabel">Update user</h5>
+
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+
+                            <form @submit.prevent="editMode ? updateUser() : saveUser()">
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <input v-model="form.name" type="text" name="name" ref="name" placeholder="name" class="form-control" :class="{ 'is-invalid': form.errors.has('name') }">
+                                        <has-error :form="form" field="name"></has-error>
+                                    </div>
+                                    <div class="form-group">
+                                        <input v-model="form.email" type="email" name="email" ref="email" placeholder="email" class="form-control" :class="{ 'is-invalid': form.errors.has('email') }">
+                                        <has-error :form="form" field="email"></has-error>
+                                    </div>
+                                    <div class="form-group">
+                                        <input v-model="form.password" type="text" name="password" ref="password" placeholder="password" class="form-control" :class="{ 'is-invalid': form.errors.has('password') }">
+                                        <has-error :form="form" field="password"></has-error>
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                                    <button v-show="editMode" type="submit" class="btn btn-primary">Update</button>
+                                    <button v-show="!editMode" type="submit" class="btn btn-primary">Create</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- .modal -->
 
     </div>
-
 </template>
 
 <script>
+import UserDataService from "../services/service";
 
-    export default {
-
-        data() {
-
-            return {
-                users: [],
-                form: new Form({
-                    'name': '',
-                    'email': '',
-                    'password': '',
-                    'password_confirmation': ''
-                })
-            }
-
+export default {
+    name: "users-list",
+    data() {
+        return {
+            users: [],
+            authors: [],
+            // currentUser: null,
+            // currentIndex: -1,
+            imagePreview: null,
+            showPreview: false,
+            search: "",
+            editMode: false,
+            next: null,
+            prev: null,
+            form: new Form({
+                id: '',
+                name: '',
+                email: '',
+                password: '',
+                password_confirmation: ''
+            }),
+        };
+    },
+    methods: {
+        openModalWindow(){
+            this.editMode = false
+            this.form.reset();
+            $('#addNew').modal('show');
         },
-
-
-        created() {
+        editModalWindow(user){
+            this.editMode = true
+            this.form.reset();
+            $('#addNew').modal('show');
+            this.form.id = user.id;
+            this.form.name = user.name;
+            this.form.email = user.email;
+            this.form.password = user.password;
+            // this.form.image = this.$refs.image.files[0];//user.image;
+        },
+        saveUser() {
             this.$Progress.start();
-            axios.get('/api/users').then(response => {
-                this.users = response.data.data;
-                // console.log(this.users);
+            this.form.password_confirmation = this.form.password;
+
+            console.log(this.form);
+            this.$Progress.start();
+            UserDataService.createUser(this.form)
+            .then(response => {
+                // this.form.id = response.data.id;
+                // console.log(response.data);
+                this.retrieveUsers();
+                $('#addNew').modal('hide');
                 this.$Progress.finish();
+            })
+            .catch(e => {
+                console.log(e);
             });
         },
+        updateUser() {
+            this.form.password_confirmation = this.form.password;
 
-        methods: {
-            onSubmit(){
-                this.form.password_confirmation = this.form.password; // Temp for this form only.
-                this.form
-                    .post('/users')
-                    .then(user => this.users.push(user));
-            }
+            this.$Progress.start();
+            UserDataService.updateUser(this.form)
+            .then(response => {
+                // console.log(response.data);
+                // this.message = 'The user was updated successfully!';
+                this.retrieveUsers();
+                $('#addNew').modal('hide');
+                this.$Progress.finish();
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+        deleteUser(id) {
+            this.$Progress.start();
+            UserDataService.deleteUser(id)
+            .then(response => {
+                // console.log(response.data);
+                // this.$router.push({ name: "users" });
+                this.retrieveUsers();
+                this.$Progress.finish();
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+        retrieveUsers(address) {
+            this.$Progress.start();
+            UserDataService.getAllUsers(address)
+            .then(response => {
+                this.users = response.data.data;
+                this.prev = response.data.links.prev;
+                this.next = response.data.links.next;
+                this.$Progress.finish();
+                // console.log(response.data.links);
+            })
+            .catch(e => {
+                console.log(e);
+            });
+        },
+        navigate(address) {
+            this.retrieveUsers(address);
         }
+    },
+    mounted() {
+        this.retrieveUsers();
     }
-
+};
 </script>
