@@ -170,51 +170,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "posts-list",
@@ -312,14 +267,19 @@ __webpack_require__.r(__webpack_exports__);
         console.log(e);
       });
     },
-    retrievePosts: function retrievePosts() {
+    retrievePosts: function retrievePosts(address) {
       var _this4 = this;
 
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].getAll().then(function (response) {
-        _this4.posts = response.data.data; // console.log(response.data);
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].getAllPosts(address).then(function (response) {
+        _this4.posts = response.data.data;
+        _this4.prev = response.data.links.prev;
+        _this4.next = response.data.links.next; // console.log(response.data.links);
       })["catch"](function (e) {
         console.log(e);
       });
+    },
+    navigate: function navigate(address) {
+      this.retrievePosts(address);
     },
     // setActivePost(post, index) {
     //     this.currentPost = post;
@@ -438,91 +398,80 @@ var render = function() {
                   _c(
                     "tbody",
                     _vm._l(_vm.posts, function(post, index) {
-                      return _c(
-                        "tr",
-                        {
-                          key: index,
-                          staticClass: "row",
-                          class: { active: index == _vm.currentIndex },
-                          on: {
-                            click: function($event) {
-                              return _vm.setActivePost(post, index)
-                            }
-                          }
-                        },
-                        [
-                          _c(
-                            "td",
-                            { staticClass: "col", attrs: { scope: "row" } },
-                            [_vm._v(_vm._s(post.id))]
-                          ),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "col" }, [
-                            _vm._v(_vm._s(post.title))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "col" }, [
-                            _vm._v(_vm._s(post.image))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "col" }, [
-                            _vm._v(_vm._s(post.author.name))
-                          ]),
-                          _vm._v(" "),
-                          _c("td", { staticClass: "col" }, [
-                            _vm._v(_vm._s(post.created_at))
-                          ]),
-                          _vm._v(" "),
-                          _c(
-                            "td",
-                            {
-                              staticClass:
-                                "col buttons d-flex justify-content-end align-posts-center"
-                            },
-                            [
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "m-1 d-block float-right",
-                                  attrs: {
-                                    href: "/admin/posts/" + post.id,
-                                    "data-id": "post.id"
+                      return _c("tr", { key: index, staticClass: "row" }, [
+                        _c(
+                          "td",
+                          { staticClass: "col", attrs: { scope: "row" } },
+                          [_vm._v(_vm._s(post.id))]
+                        ),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "col" }, [
+                          _vm._v(_vm._s(post.title))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "col" }, [
+                          _c("img", {
+                            attrs: { src: "../storage/" + post.image }
+                          })
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "col" }, [
+                          _vm._v(_vm._s(post.author.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "col" }, [
+                          _vm._v(_vm._s(post.created_at))
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "col buttons d-flex justify-content-end align-posts-center"
+                          },
+                          [
+                            _c(
+                              "a",
+                              {
+                                staticClass: "m-1 d-block float-right",
+                                attrs: {
+                                  href: "/admin/posts/" + post.id,
+                                  "data-id": "post.id"
+                                }
+                              },
+                              [_vm._m(2, true)]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "m-1 d-block float-right",
+                                attrs: { href: "#", "data-id": "post.id" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.editModalWindow(post)
                                   }
-                                },
-                                [_vm._m(2, true)]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "m-1 d-block float-right",
-                                  attrs: { href: "#", "data-id": "post.id" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.editModalWindow(post)
-                                    }
+                                }
+                              },
+                              [_vm._m(3, true)]
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "a",
+                              {
+                                staticClass: "m-1 d-block float-right",
+                                attrs: { href: "#", "data-id": "post.id" },
+                                on: {
+                                  click: function($event) {
+                                    return _vm.deletePost(post.id)
                                   }
-                                },
-                                [_vm._m(3, true)]
-                              ),
-                              _vm._v(" "),
-                              _c(
-                                "a",
-                                {
-                                  staticClass: "m-1 d-block float-right",
-                                  attrs: { href: "#", "data-id": "post.id" },
-                                  on: {
-                                    click: function($event) {
-                                      return _vm.deletePost(post.id)
-                                    }
-                                  }
-                                },
-                                [_vm._m(4, true)]
-                              )
-                            ]
-                          )
-                        ]
-                      )
+                                }
+                              },
+                              [_vm._m(4, true)]
+                            )
+                          ]
+                        )
+                      ])
                     }),
                     0
                   )
@@ -530,7 +479,50 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _vm._m(5)
+            _c("div", { staticClass: "card-tools row" }, [
+              _c("div", { staticClass: "col-12" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "d-flex justify-content-start align-posts-center"
+                  },
+                  [
+                    _vm.next
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "m-2 btn btn-primary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.navigate(_vm.next)
+                              }
+                            }
+                          },
+                          [_vm._v("Next")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _vm.prev
+                      ? _c(
+                          "button",
+                          {
+                            staticClass: "m-2 btn btn-primary",
+                            attrs: { type: "button" },
+                            on: {
+                              click: function($event) {
+                                return _vm.navigate(_vm.prev)
+                              }
+                            }
+                          },
+                          [_vm._v("Previous")]
+                        )
+                      : _vm._e()
+                  ]
+                )
+              ])
+            ])
           ])
         ])
       ])
@@ -592,7 +584,7 @@ var render = function() {
                   [_vm._v("Update post")]
                 ),
                 _vm._v(" "),
-                _vm._m(6)
+                _vm._m(5)
               ]),
               _vm._v(" "),
               _c(
@@ -844,7 +836,7 @@ var staticRenderFns = [
         attrs: { type: "button" }
       },
       [
-        _vm._v("\n                                                  Show "),
+        _vm._v("\n                                                Show "),
         _c("i", { staticClass: "fas fa-loop" })
       ]
     )
@@ -861,7 +853,7 @@ var staticRenderFns = [
         attrs: { type: "button" }
       },
       [
-        _vm._v("\n                                                  Update "),
+        _vm._v("\n                                                Update "),
         _c("i", { staticClass: "fa fa-edit" })
       ]
     )
@@ -878,22 +870,10 @@ var staticRenderFns = [
         attrs: { type: "button" }
       },
       [
-        _vm._v("\n                                                  Delete "),
+        _vm._v("\n                                                Delete "),
         _c("i", { staticClass: "fas fa-trash" })
       ]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "card-tools row" }, [
-      _c("div", { staticClass: "col-12" }, [
-        _c("div", {
-          staticClass: "d-flex justify-content-start align-posts-center"
-        })
-      ])
-    ])
   },
   function() {
     var _vm = this
@@ -964,9 +944,9 @@ var DataService = /*#__PURE__*/function () {
   }
 
   _createClass(DataService, [{
-    key: "getAll",
-    value: function getAll() {
-      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get('/posts');
+    key: "getAllPosts",
+    value: function getAllPosts(address) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get(address ? address : '/posts');
     }
   }, {
     key: "get",

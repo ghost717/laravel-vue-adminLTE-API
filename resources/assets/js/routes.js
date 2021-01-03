@@ -24,11 +24,11 @@ let routes = [
       name: "post-details",
       component: () => import("./views/post")
     },
-    {
-      path: "/posts/add",
-      name: "add-post",
-      component: () => import("./views/addPost")
-    }
+    // {
+    //   path: "/posts/add",
+    //   name: "add-post",
+    //   component: () => import("./views/addPost")
+    // }
     // {
     //     path: '/posts',
     //     component: require('./views/posts').default

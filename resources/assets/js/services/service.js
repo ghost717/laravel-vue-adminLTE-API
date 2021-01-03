@@ -1,8 +1,8 @@
 import http from "../http-common";
 
 class DataService {
-  getAll() {
-    return http.get('/posts');
+  getAllPosts(address) {
+    return http.get(address ? address : '/posts');
   }
 
   get(id) {

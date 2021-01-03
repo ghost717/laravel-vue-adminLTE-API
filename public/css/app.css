@@ -37363,3 +37363,7 @@ readers do not read off random characters that represent icons */
   width: auto;
 }
 
+.table img {
+  max-width: 150px;
+}
+

@@ -49,21 +49,13 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <!-- <tr v-for="post in posts" :key="post.id" class="row"> -->
-                                        <!-- :href="'/posts/' + currentPost.id" -->
-                                    <tr class="row" :class="{ active: index == currentIndex }" v-for="(post, index) in posts" :key="index" @click="setActivePost(post, index)">
+                                    <tr class="row" v-for="(post, index) in posts" :key="index">
                                         <td class="col" scope="row">{{post.id}}</td>
                                         <td class="col">{{post.title}}</td>
-                                        <td class="col">{{post.image}}</td>
+                                        <td class="col"><img v-bind:src="'../storage/' + post.image" /></td>
                                         <td class="col">{{post.author.name}}</td>
                                         <td class="col">{{post.created_at}}</td>
                                         <td class="col buttons d-flex justify-content-end align-posts-center">
-
-                                             <!-- <router-link:to="{ name: 'posts/show', params: { postId : post.id } }" :class="m-1 d-block float-right">
-                                                <button type="button" class="btn btn-sm btn-success  d-flex align-items-center justify-content-between">
-                                                    Show <i class="fas fa-loop"></i>
-                                                </button>
-                                            </router-link> -->
                                             <a :href="'/admin/posts/' + post.id" class="m-1 d-block float-right" data-id="post.id">
                                                 <button type="button" class="btn btn-sm btn-primary  d-flex align-items-center justify-content-between">
                                                     Show <i class="fas fa-loop"></i>
@@ -87,8 +79,8 @@
                         <div class="card-tools row">
                             <div class="col-12">
                                 <div class="d-flex justify-content-start align-posts-center">
-                                    <!-- <button v-if="next" type="button" @click="navigate(next)" class="m-2 btn btn-primary">Next</button>
-                                    <button v-if="prev" type="button" @click="navigate(prev)" class="m-2 btn btn-primary">Previous</button> -->
+                                    <button v-if="next" type="button" @click="navigate(next)" class="m-2 btn btn-primary">Next</button>
+                                    <button v-if="prev" type="button" @click="navigate(prev)" class="m-2 btn btn-primary">Previous</button>
                                 </div>
                             </div>
                         </div>
@@ -162,43 +154,6 @@
                         </div>
                     </div>
                 </div><!-- .modal -->
-
-  <!-- <div class="list row">
-
-    <div class="col-md-6">
-      <h4>Posts List</h4>
-      <ul class="list-group">
-        <li class="list-group-item" :class="{ active: index == currentIndex }" v-for="(post, index) in posts" :key="index" @click="setActivePost(post, index)" >
-          {{ post.title }}
-        </li>
-      </ul>
-
-    </div>
-    <div class="col-md-6">
-      <div v-if="currentPost">
-        <h4>Post</h4>
-        <div>
-          <label><strong>Title:</strong></label> {{ currentPost.title }}
-        </div>
-        <div>
-          <label><strong>Description:</strong></label> {{ currentPost.body }}
-        </div>
-        <div>
-          <label><strong>Status:</strong></label> {{ currentPost.published ? "Published" : "Pending" }}
-        </div>
-
-        <a class="badge badge-warning"
-          :href="'/admin/posts/' + currentPost.id"
-        >
-          Edit
-        </a>
-      </div>
-      <div v-else>
-        <br />
-        <p>Please click on a Post...</p>
-      </div>
-    </div>
-  </div> -->
 
     </div>
 </template>
@@ -298,15 +253,21 @@ export default {
                 console.log(e);
             });
         },
-        retrievePosts() {
-            PostDataService.getAll()
+        retrievePosts(address) {
+            PostDataService.getAllPosts(address)
             .then(response => {
                 this.posts = response.data.data;
-                // console.log(response.data);
+                this.prev = response.data.links.prev;
+                this.next = response.data.links.next;
+
+                // console.log(response.data.links);
             })
             .catch(e => {
                 console.log(e);
             });
+        },
+        navigate(address) {
+            this.retrievePosts(address);
         },
         // setActivePost(post, index) {
         //     this.currentPost = post;

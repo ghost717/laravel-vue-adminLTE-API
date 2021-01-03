@@ -55433,13 +55433,12 @@ var routes = [{
   component: function component() {
     return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/post */ "./resources/assets/js/views/post.vue"));
   }
-}, {
-  path: "/posts/add",
-  name: "add-post",
-  component: function component() {
-    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/addPost */ "./resources/assets/js/views/addPost.vue"));
-  }
 } // {
+//   path: "/posts/add",
+//   name: "add-post",
+//   component: () => import("./views/addPost")
+// }
+// {
 //     path: '/posts',
 //     component: require('./views/posts').default
 // },

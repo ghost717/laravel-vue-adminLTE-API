@@ -327,9 +327,9 @@ var DataService = /*#__PURE__*/function () {
   }
 
   _createClass(DataService, [{
-    key: "getAll",
-    value: function getAll() {
-      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get('/posts');
+    key: "getAllPosts",
+    value: function getAllPosts(address) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get(address ? address : '/posts');
     }
   }, {
     key: "get",
