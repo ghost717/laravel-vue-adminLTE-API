@@ -24,12 +24,11 @@ class UsersController extends Controller
     {
         $this->validate($request, [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => ['required', 'string', 'email', 'max:255'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        $user        = $request->isMethod('put') ? User::findOrFail($request->id) : new User;
-        $user->id    = $request->input('id');
+        $user = new User;
         $user->name = $request->name;
         $user->email = $request->email;
         $user->password = Hash::make($request['password']);
@@ -38,6 +37,25 @@ class UsersController extends Controller
             return new UsersResource($user);
         }
     }
+
+    // public function update(Request $request)
+    // {
+    //     $this->validate($request, [
+    //         'name' => ['required', 'string', 'max:255'],
+    //         'email' => ['required', 'string', 'email', 'max:255'],
+    //         'password' => ['required', 'string', 'min:8', 'confirmed'],
+    //     ]);
+
+    //     $user = User::findOrFail($request->id);
+    //     $user->id = $request->input('id');
+    //     $user->name = $request->name;
+    //     $user->email = $request->email;
+    //     $user->password = Hash::make($request['password']);
+
+    //     if ($user->save()) {
+    //         return new UsersResource($user);
+    //     }
+    // }
 
     public function show(User $user)
     {

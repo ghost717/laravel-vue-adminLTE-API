@@ -582,6 +582,122 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./resources/assets/js/http-common.js":
+/*!********************************************!*\
+  !*** ./resources/assets/js/http-common.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (axios__WEBPACK_IMPORTED_MODULE_0___default.a.create({
+  baseURL: "http://localhost:8000/api",
+  headers: {
+    "Content-type": "application/json"
+  }
+}));
+
+/***/ }),
+
+/***/ "./resources/assets/js/services/service.js":
+/*!*************************************************!*\
+  !*** ./resources/assets/js/services/service.js ***!
+  \*************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _http_common__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../http-common */ "./resources/assets/js/http-common.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+var DataService = /*#__PURE__*/function () {
+  function DataService() {
+    _classCallCheck(this, DataService);
+  }
+
+  _createClass(DataService, [{
+    key: "getAllUsers",
+    //users
+    value: function getAllUsers(address) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get(address ? address : '/users');
+    }
+  }, {
+    key: "getUser",
+    value: function getUser(id) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/users/".concat(id));
+    }
+  }, {
+    key: "createUser",
+    value: function createUser(data) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].post('/users', data);
+    }
+  }, {
+    key: "updateUser",
+    value: function updateUser(data) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].put('/users', data);
+    }
+  }, {
+    key: "deleteUser",
+    value: function deleteUser(id) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/users/".concat(id));
+    }
+  }, {
+    key: "findUser",
+    value: function findUser(title) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/users?title=".concat(title));
+    } //posts
+
+  }, {
+    key: "getAllPosts",
+    value: function getAllPosts(address) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get(address ? address : '/posts');
+    }
+  }, {
+    key: "getPost",
+    value: function getPost(id) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/posts/".concat(id));
+    }
+  }, {
+    key: "createPost",
+    value: function createPost(data) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].post('/posts', data);
+    }
+  }, {
+    key: "updatePost",
+    value: function updatePost(data) {
+      // return http.put(`/posts/${id}`, data);
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].put('/posts', data);
+    }
+  }, {
+    key: "deletePost",
+    value: function deletePost(id) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/posts/".concat(id));
+    }
+  }, {
+    key: "findPost",
+    value: function findPost(title) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/posts?title=".concat(title));
+    }
+  }]);
+
+  return DataService;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (new DataService());
+
+/***/ }),
+
 /***/ "./resources/assets/js/views/post.vue":
 /*!********************************************!*\
   !*** ./resources/assets/js/views/post.vue ***!

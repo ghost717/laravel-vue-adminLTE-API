@@ -206,7 +206,7 @@ export default {
         },
         updateUser() {
             this.form.password_confirmation = this.form.password;
-
+            console.log(this.form);
             this.$Progress.start();
             UserDataService.updateUser(this.form)
             .then(response => {

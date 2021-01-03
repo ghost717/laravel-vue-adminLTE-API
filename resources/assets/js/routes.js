@@ -10,9 +10,16 @@ let routes = [
         component: require('./views/dashboard').default
     },
     {
-        path: '/users',
-        component: require('./views/users').default
-    },
+        path: "/",
+        alias: "/users",
+        name: "users",
+        component: () => import("./views/users")
+      },
+      {
+        path: "/users/:id",
+        name: "user-details",
+        component: () => import("./views/user")
+      },
     {
       path: "/",
       alias: "/posts",
