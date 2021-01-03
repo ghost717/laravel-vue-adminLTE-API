@@ -24,25 +24,25 @@ class PostController extends Controller
 
     public function index()
     {
-        if (Auth::user()->hasRole('admin')){
+        // if (Auth::user()->hasRole('admin')){
             return PostResource::collection(Post::with(['author'])->orderBy('id', 'DESC')->paginate(20));
-        } else {
-            return PostResource::collection(Post::with(['author'])->where('user_id', '=', Auth::id())->orderBy('id', 'DESC')->paginate(20));
-        }
+        // } else {
+        //     return PostResource::collection(Post::with(['author'])->where('user_id', '=', Auth::id())->orderBy('id', 'DESC')->paginate(20));
+        // }
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'title' => 'required',
-            'user_id' => 'required',
+            // 'user_id' => 'required',
             // 'image' => 'mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $post        = $request->isMethod('put') ? Post::findOrFail($request->id) : new Post;
         $post->id    = $request->input('id');
-        // $post->user_id = Auth::user()->id;
-        $post->user_id = $request->user_id;
+        $post->user_id = Auth::user()->id;
+        // $post->user_id = $request->user_id;
 
         if ($request->hasFile('image')) {
             $imagePath = request('image')->store('/uploads/posts', 'public');
@@ -58,7 +58,7 @@ class PostController extends Controller
         $post->body = $request->body;
 
         if ($post->save()) {
-            return new PostsResource($post);
+            return new PostResource($post);
         }
     }
 

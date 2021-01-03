@@ -22,8 +22,8 @@ Route::get('/', 'PostController@all');
 
 Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');
 
-// Route::prefix('api')->group(function () { //for dev
-Route::prefix('api')->middleware('auth')->group(function () {
+Route::prefix('api')->group(function () { //for dev
+// Route::prefix('api')->middleware('auth')->group(function () {
     Route::get('posts', 'PostController@index');
     Route::get('posts/{id}', 'PostController@show');
     Route::post('posts', 'PostController@store');

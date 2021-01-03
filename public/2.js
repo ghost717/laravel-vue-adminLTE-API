@@ -207,6 +207,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "posts-list",
@@ -215,7 +221,7 @@ __webpack_require__.r(__webpack_exports__);
       posts: [],
       currentPost: null,
       currentIndex: -1,
-      title: "",
+      search: "",
       editMode: false,
       next: null,
       prev: null,
@@ -248,38 +254,59 @@ __webpack_require__.r(__webpack_exports__);
 
       var data = {
         title: this.form.title,
-        body: this.form.body
-      };
-      DataService.create(data).then(function (response) {
-        _this.form.id = response.data.id;
-        console.log(response.data);
+        body: this.form.body,
+        user_id: this.form.user_id,
+        image: this.$refs.image.files[0]
+      }; // console.log(data);
+
+      this.$Progress.start();
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].create(data).then(function (response) {
+        // this.form.id = response.data.id;
+        // console.log(response.data);
+        _this.retrievePosts();
+
+        _this.$Progress.finish();
+
+        $('#addNew').modal('hide');
       })["catch"](function (e) {
         console.log(e);
       });
     },
     updatePost: function updatePost() {
+      var _this2 = this;
+
+      this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.form.id, this.form).then(function (response) {
-        console.log(response.data); // this.message = 'The post was updated successfully!';
+        // console.log(response.data);
+        // this.message = 'The post was updated successfully!';
+        _this2.retrievePosts();
+
+        _this2.$Progress.finish();
+
+        $('#addNew').modal('hide');
       })["catch"](function (e) {
         console.log(e);
       });
     },
     deletePost: function deletePost(id) {
-      var _this2 = this;
+      var _this3 = this;
 
+      this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](id).then(function (response) {
-        console.log(response.data); // this.$router.push({ name: "posts" });
+        // console.log(response.data);
+        // this.$router.push({ name: "posts" });
+        _this3.retrievePosts();
 
-        _this2.retrievePosts();
+        _this3.$Progress.finish();
       })["catch"](function (e) {
         console.log(e);
       });
     },
     retrievePosts: function retrievePosts() {
-      var _this3 = this;
+      var _this4 = this;
 
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].getAll().then(function (response) {
-        _this3.posts = response.data.data;
+        _this4.posts = response.data.data;
         console.log(response.data);
       })["catch"](function (e) {
         console.log(e);
@@ -305,10 +332,10 @@ __webpack_require__.r(__webpack_exports__);
     //     });
     // },
     searchTitle: function searchTitle() {
-      var _this4 = this;
+      var _this5 = this;
 
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].findByTitle(this.title).then(function (response) {
-        _this4.posts = response.data;
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].findByTitle(this.search).then(function (response) {
+        _this5.posts = response.data;
         console.log(response.data);
       })["catch"](function (e) {
         console.log(e);
@@ -350,19 +377,19 @@ var render = function() {
                   {
                     name: "model",
                     rawName: "v-model",
-                    value: _vm.title,
-                    expression: "title"
+                    value: _vm.search,
+                    expression: "search"
                   }
                 ],
                 staticClass: "form-control",
                 attrs: { type: "text", placeholder: "Search by title" },
-                domProps: { value: _vm.title },
+                domProps: { value: _vm.search },
                 on: {
                   input: function($event) {
                     if ($event.target.composing) {
                       return
                     }
-                    _vm.title = $event.target.value
+                    _vm.search = $event.target.value
                   }
                 }
               }),
@@ -687,7 +714,26 @@ var render = function() {
                         })
                       ],
                       1
-                    )
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("div", { staticClass: "custom-file mb-3" }, [
+                        _c("input", {
+                          ref: "image",
+                          staticClass: "custom-file-input",
+                          attrs: {
+                            type: "file",
+                            name: "image",
+                            id: "image",
+                            required: ""
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("label", { staticClass: "custom-file-label" }, [
+                          _vm._v("Choose file...")
+                        ])
+                      ])
+                    ])
                   ]),
                   _vm._v(" "),
                   _c("div", { staticClass: "modal-footer" }, [

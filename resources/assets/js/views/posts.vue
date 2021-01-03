@@ -7,7 +7,7 @@
                         <h1 class="m-0 text-dark">Posts</h1>
 
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Search by title" v-model="title"/>
+                            <input type="text" class="form-control" placeholder="Search by title" v-model="search"/>
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" @click="searchTitle" > Search </button>
                             </div>
@@ -124,6 +124,12 @@
                                         <input v-model="form.body" type="text" name="body" ref="body" placeholder="body" class="form-control" :class="{ 'is-invalid': form.errors.has('comment') }">
                                         <has-error :form="form" field="body"></has-error>
                                     </div>
+                                    <div class="form-group">
+                                        <div class="custom-file mb-3">
+                                            <input type="file" ref="image" name="image" class="custom-file-input" id="image" required>
+                                            <label class="custom-file-label" >Choose file...</label>
+                                        </div>
+                                    </div>
                                     <!-- <div class="form-group">
                                         <select name="completed" v-model="form.completed" ref="completed" id="completed" class="form-control">
                                             <!-- <option value="">Please select one</option> - ->
@@ -205,7 +211,7 @@ export default {
             posts: [],
             currentPost: null,
             currentIndex: -1,
-            title: "",
+            search: "",
             editMode: false,
             next: null,
             prev: null,
@@ -237,33 +243,46 @@ export default {
         savePost() {
             var data = {
                 title: this.form.title,
-                body: this.form.body
+                body: this.form.body,
+                user_id: this.form.user_id,
+                image: this.$refs.image.files[0],
             };
-            DataService.create(data)
+            // console.log(data);
+            this.$Progress.start();
+            PostDataService.create(data)
             .then(response => {
-                this.form.id = response.data.id;
-                console.log(response.data);
+                // this.form.id = response.data.id;
+                // console.log(response.data);
+                this.retrievePosts();
+                this.$Progress.finish();
+                $('#addNew').modal('hide');
             })
             .catch(e => {
                 console.log(e);
             });
         },
         updatePost() {
+            this.$Progress.start();
             PostDataService.update(this.form.id, this.form)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // this.message = 'The post was updated successfully!';
+                this.retrievePosts();
+                this.$Progress.finish();
+                $('#addNew').modal('hide');
             })
             .catch(e => {
                 console.log(e);
             });
         },
         deletePost(id) {
+            this.$Progress.start();
             PostDataService.delete(id)
             .then(response => {
-                console.log(response.data);
+                // console.log(response.data);
                 // this.$router.push({ name: "posts" });
                 this.retrievePosts();
+                this.$Progress.finish();
             })
             .catch(e => {
                 console.log(e);
@@ -300,7 +319,7 @@ export default {
         //     });
         // },
         searchTitle() {
-            PostDataService.findByTitle(this.title)
+            PostDataService.findByTitle(this.search)
             .then(response => {
                 this.posts = response.data;
                 console.log(response.data);

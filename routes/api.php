@@ -20,10 +20,10 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('posts', 'PostController');
 
 // Route::get('posts', 'PostController@index');
-// Route::get('post/{id}', 'PostController@show');
-// Route::post('post', 'PostController@store');
-// Route::put('post', 'PostController@store');
-// Route::delete('post/{id}', 'PostController@destroy');
+// Route::get('posts/{id}', 'PostController@show');
+// Route::post('posts', 'PostController@store');
+// Route::put('posts', 'PostController@store');
+// Route::delete('posts/{id}', 'PostController@destroy');
 
 Route::get('users', 'UsersController@index');
 Route::get('user/{id}', 'UsersController@show');
