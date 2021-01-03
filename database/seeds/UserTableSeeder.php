@@ -15,17 +15,17 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         $user = new User;
-        $user->name = 'Samuel Jackson';
-        $user->email = 'samueljackson@jackson.com';
-        $user->password = bcrypt('samuel1234');
+        $user->name = 'admin';
+        $user->email = 'admin@jwba.pl';
+        $user->password = bcrypt('password');
         $user->save();
-        $user->roles()->attach(Role::where('name', 'user')->first());
+        $user->roles()->attach(Role::where('name', 'admin')->first());
 
         $admin = new User;
-        $admin->name = 'Dawid';
-        $admin->email = 'dawid@jwba.pl';
+        $admin->name = 'User';
+        $admin->email = 'user@jwba.pl';
         $admin->password = bcrypt('password');
         $admin->save();
-        $admin->roles()->attach(Role::where('name', 'admin')->first());
+        $admin->roles()->attach(Role::where('name', 'user')->first());
     }
 }
