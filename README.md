@@ -1,6 +1,7 @@
 # laravel-vue-adminLTE-api
 
 
+<!-- 
 ### Build
 
 ```bash
@@ -18,7 +19,29 @@
 > git clone https://github.com/CryDeTaan/Laravel_VUE_AdminLTE_Template.git 
 
 ```
+-->
 
+### Installation
+
+```bash
+
+CLONE & INSTALL REPO
+
+> git clone https://github.com/ghost717/wp-adminLTE-api project
+
+> cd project
+
+> composer install
+
+> npm install
+
+> cp -r .env.example .env
+
+> php artisan key:generate
+
+> php artisan migration:fresh --seed
+
+```
 
 ### Source
 
@@ -35,6 +58,7 @@
 - https://bezkoder.com/vue-js-crud-app/
 
 
+<!-- 
 #### TODOS
 
 - ikonki
@@ -45,3 +69,5 @@
 - wyszukiwarka
 - widok pojedynczego wpisu
 - upload obrazkow
+- masowy upload
+-->
