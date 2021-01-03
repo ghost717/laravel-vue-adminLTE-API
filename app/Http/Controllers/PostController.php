@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Post;
+
 use Illuminate\Http\Request;
 use App\Http\Resources\PostResource;
 
@@ -22,7 +24,11 @@ class PostController extends Controller
 
     public function index()
     {
-        return PostResource::collection(Post::latest()->paginate(5));
+        if (Auth::user()->hasRole('admin')){
+            return PostResource::collection(Post::with(['author'])->orderBy('id', 'DESC')->paginate(20));
+        } else {
+            return PostResource::collection(Post::with(['author'])->where('user_id', '=', Auth::id())->orderBy('id', 'DESC')->paginate(20));
+        }
     }
 
     public function create()
@@ -34,9 +40,9 @@ class PostController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'body' => 'required',
+            // 'body' => 'required',
             'user_id' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'mimes:jpeg,png,jpg,gif,svg',
         ]);
 
         $post = new Post;
@@ -73,10 +79,9 @@ class PostController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            'body' => 'required',
         ]);
 
-        $post->update($request->only(['title', 'body']));
+        $post->update($request->only(['title', 'body', 'image']));
 
         return new PostResource($post);
     }

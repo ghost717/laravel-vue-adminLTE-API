@@ -22,5 +22,17 @@ Route::get('/', 'PostController@all');
 
 Route::get('/admin/{any}', 'AdminController@index')->where('any', '.*');
 
-Route::get('/users', 'UsersController@index');
-Route::post('/users', 'UsersController@create');
+// Route::prefix('api')->group(function () { //for dev
+Route::prefix('api')->middleware('auth')->group(function () {
+    Route::get('posts', 'PostController@index');
+    Route::get('post/{id}', 'PostController@show');
+    Route::post('post', 'PostController@store');
+    Route::put('post', 'PostController@store');
+    Route::delete('post/{id}', 'PostController@destroy');
+
+    Route::get('users', 'UsersController@index');
+    Route::get('user/{id}', 'UsersController@show');
+    Route::post('user', 'UsersController@store');
+    Route::put('user', 'UsersController@store');
+    Route::delete('user/{id}', 'UsersController@destroy');
+});
