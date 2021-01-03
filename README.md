@@ -5,7 +5,7 @@
 
 ```bash
 
-> composer create-project –prefer-dist laravel/laravel laravel-vue-cms
+> composer create-project –prefer-dist laravel/laravel laravel-adminLTE
 
 > composer require laravel/ui
 
@@ -22,10 +22,14 @@
 
 ### Source
 
-- https://morioh.com/p/715b2bc28221
 
-- https://github.com/neoighodaro/laravel-vue-cms
+#### Backend
+
+- https://morioh.com/p/715b2bc28221
 
 - https://medium.com/@crydetaan/laravel-6-vuejs-adminlte-3-1e264db76809
 
 
+#### Frontend
+
+- https://bezkoder.com/vue-js-crud-app/
