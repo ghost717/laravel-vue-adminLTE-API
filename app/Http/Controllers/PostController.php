@@ -31,21 +31,18 @@ class PostController extends Controller
         }
     }
 
-    public function create()
-    {
-        //
-    }
-
     public function store(Request $request)
     {
         $this->validate($request, [
             'title' => 'required',
-            // 'body' => 'required',
             'user_id' => 'required',
-            'image' => 'mimes:jpeg,png,jpg,gif,svg',
+            // 'image' => 'mimes:jpeg,png,jpg,gif,svg',
         ]);
 
-        $post = new Post;
+        $post        = $request->isMethod('put') ? Post::findOrFail($request->id) : new Post;
+        $post->id    = $request->input('id');
+        // $post->user_id = Auth::user()->id;
+        $post->user_id = $request->user_id;
 
         if ($request->hasFile('image')) {
             $imagePath = request('image')->store('/uploads/posts', 'public');
@@ -57,32 +54,16 @@ class PostController extends Controller
             $post->image = $imagePath;
         }
 
-        $post->user_id = $request->user_id;
         $post->title = $request->title;
         $post->body = $request->body;
-        $post->save();
 
-        return new PostResource($post);
+        if ($post->save()) {
+            return new PostsResource($post);
+        }
     }
 
     public function show(Post $post)
     {
-        return new PostResource($post);
-    }
-
-    public function edit(Post $post)
-    {
-        //
-    }
-
-    public function update(Request $request, Post $post)
-    {
-        $this->validate($request, [
-            'title' => 'required',
-        ]);
-
-        $post->update($request->only(['title', 'body', 'image']));
-
         return new PostResource($post);
     }
 
