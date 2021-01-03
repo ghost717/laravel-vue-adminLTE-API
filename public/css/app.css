@@ -37367,3 +37367,13 @@ readers do not read off random characters that represent icons */
   max-width: 150px;
 }
 
+.items__header .card-tools {
+  width: 150px;
+  margin: 0;
+  margin-left: 20px;
+}
+
+.items__header h1 {
+  width: 250px;
+}
+

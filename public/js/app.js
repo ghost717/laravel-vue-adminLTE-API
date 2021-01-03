@@ -55425,13 +55425,13 @@ var routes = [{
   alias: "/posts",
   name: "posts",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/posts */ "./resources/assets/js/views/posts.vue"));
+    return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/posts */ "./resources/assets/js/views/posts.vue"));
   }
 }, {
   path: "/posts/:id",
   name: "post-details",
   component: function component() {
-    return __webpack_require__.e(/*! import() */ 1).then(__webpack_require__.bind(null, /*! ./views/post */ "./resources/assets/js/views/post.vue"));
+    return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/post */ "./resources/assets/js/views/post.vue"));
   }
 } // {
 //   path: "/posts/add",

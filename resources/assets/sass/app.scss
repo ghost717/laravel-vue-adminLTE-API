@@ -20,3 +20,19 @@
         max-width: 150px;
     }
 }
+
+.items{
+    &__header{
+        .card-tools{
+            width: 150px;
+            margin: 0;
+            margin-left: 20px;
+        }
+        h1{
+            width: 250px;
+        }
+    }
+    &__body{
+
+    }
+}

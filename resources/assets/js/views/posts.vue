@@ -4,14 +4,14 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Posts</h1>
+                        <!-- <h1 class="m-0 text-dark">Posts</h1>
 
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Search by title" v-model="search"/>
                             <div class="input-group-append">
                                 <button class="btn btn-outline-secondary" type="button" @click="searchTitle" > Search </button>
                             </div>
-                        </div>
+                        </div> -->
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <!-- <div class="card-tools">
@@ -29,14 +29,22 @@
         <div class="content"><!-- Main content -->
             <div class="container-fluid">
 
-                <div>
+                <div class="items">
                     <div class="card">
-                        <div class="card-header">
+                        <div class="items__header card-header d-flex align-items-baseline justify-content-between">
+                            <h1 class="m-0 text-dark">Posts</h1>
+
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="Search by title" v-model="search"/>
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" @click="searchTitle" > Search </button>
+                                </div>
+                            </div>
                             <div class="card-tools">
                                 <button class="btn btn-success" data-toggle="modal" data-target="#addNew" @click="openModalWindow">Add new <i class="fas fa-plus-square"></i></button>
                             </div>
                         </div><!-- /.card-header -->
-                        <div class="card-body">
+                        <div class="items__body card-body">
                             <table id="posts" class="table table-hover">
                                 <thead class="thead">
                                     <tr class="row">
@@ -50,17 +58,20 @@
                                 </thead>
                                 <tbody>
                                     <tr class="row" v-for="(post, index) in posts" :key="index">
+                                    <!-- <router-link v-for="(post, index) in posts" :to="{ name: 'post-details', params: { id: post.id } }" tag="tr"> -->
                                         <td class="col" scope="row">{{post.id}}</td>
                                         <td class="col">{{post.title}}</td>
                                         <td class="col"><img v-bind:src="'../storage/' + post.image" /></td>
                                         <td class="col">{{post.author.name}}</td>
                                         <td class="col">{{post.created_at}}</td>
                                         <td class="col buttons d-flex justify-content-end align-posts-center">
-                                            <a :href="'/admin/posts/' + post.id" class="m-1 d-block float-right" data-id="post.id">
+                                            <!-- <a :href="'/admin/posts/' + post.id" class="m-1 d-block float-right" data-id="post.id"> -->
+                                            <router-link :to="{ name: 'post-details', params: { id: post.id } }" class="m-1 d-block float-right">
                                                 <button type="button" class="btn btn-sm btn-primary  d-flex align-items-center justify-content-between">
                                                     Show <i class="fas fa-loop"></i>
                                                 </button>
-                                            </a>
+                                            </router-link>
+                                            <!-- </a> -->
                                             <a href="#" class="m-1 d-block float-right" data-id="post.id" @click="editModalWindow(post)">
                                                 <button type="button" class="btn btn-sm btn-warning text-light d-flex align-items-center justify-content-between">
                                                     Update <i class="fa fa-edit"></i>
@@ -72,6 +83,7 @@
                                                 </button>
                                             </a>
                                         </td>
+                                    <!-- </router-link> -->
                                     </tr>
                                 </tbody>
                             </table>
@@ -106,8 +118,8 @@
                             <form @submit.prevent="editMode ? updatePost() : savePost()">
                                 <div class="modal-body">
                                     <div class="form-group">
-                                        <select name="dev_id" v-model="form.dev_id" ref="dev_id" id="dev_id" class="form-control">
-                                            <!-- <option v-for="d in devs" :value="d.id">{{ d.name }}</option> -->
+                                        <select name="user_id" v-model="form.user_id" ref="user_id" id="user_id" class="form-control">
+                                            <option v-for="d in authors" :value="d.id">{{ d.name }}</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
@@ -166,6 +178,7 @@ export default {
     data() {
         return {
             posts: [],
+            authors: [],
             // currentPost: null,
             // currentIndex: -1,
             search: "",
@@ -196,6 +209,11 @@ export default {
             this.form.title = post.title;
             this.form.body = post.body;
             this.form.image = this.$refs.image.files[0];//post.image;
+        },
+        getAuthors(address) {
+            axios.get(address ? address : "/api/users").then(response => {
+                this.authors = response.data.data;
+            });
         },
         savePost() {
             const data = new FormData();
@@ -286,6 +304,7 @@ export default {
     },
     mounted() {
         this.retrievePosts();
+        this.getAuthors();
     }
 };
 </script>
