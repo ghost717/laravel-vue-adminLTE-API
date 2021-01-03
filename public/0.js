@@ -65,59 +65,109 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "post",
   data: function data() {
     return {
-      currentPost: null,
+      post: null,
+      authors: [],
       message: ''
     };
   },
   methods: {
-    getPost: function getPost(id) {
+    getAuthors: function getAuthors(address) {
       var _this = this;
 
+      axios.get(address ? address : "/api/users").then(function (response) {
+        _this.authors = response.data.data;
+      });
+    },
+    getPost: function getPost(id) {
+      var _this2 = this;
+
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].get(id).then(function (response) {
-        _this.currentPost = response.data.data;
-        console.log(response.data);
+        _this2.post = response.data.data;
       })["catch"](function (e) {
         console.log(e);
       });
     },
     updatePublished: function updatePublished(status) {
-      var _this2 = this;
+      var _this3 = this;
 
       var data = {
-        id: this.currentPost.id,
-        title: this.currentPost.title,
-        body: this.currentPost.body,
+        id: this.post.id,
+        title: this.post.title,
+        body: this.post.body,
         published: status
       };
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.currentPost.id, data).then(function (response) {
-        _this2.currentPost.published = status;
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.post.id, data).then(function (response) {
+        _this3.post.published = status;
         console.log(response.data);
       })["catch"](function (e) {
         console.log(e);
       });
     },
     updatePost: function updatePost() {
-      var _this3 = this;
+      var _this4 = this;
 
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.currentPost.id, this.currentPost).then(function (response) {
-        console.log(response.data);
-        _this3.message = 'The post was updated successfully!';
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.post.id, this.post).then(function (response) {
+        // console.log(response.data);
+        _this4.message = 'The post was updated successfully!';
       })["catch"](function (e) {
         console.log(e);
       });
     },
     deletePost: function deletePost() {
-      var _this4 = this;
+      var _this5 = this;
 
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](this.currentPost.id).then(function (response) {
-        console.log(response.data);
-
-        _this4.$router.push({
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"](this.post.id).then(function (response) {
+        // console.log(response.data);
+        _this5.$router.push({
           name: "posts"
         });
       })["catch"](function (e) {
@@ -128,6 +178,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.message = '';
     this.getPost(this.$route.params.id);
+    this.getAuthors();
   }
 });
 
@@ -148,132 +199,287 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.currentPost
-    ? _c("div", { staticClass: "edit-form" }, [
-        _c("h4", [_vm._v("Post")]),
-        _vm._v(" "),
-        _c("form", [
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "title" } }, [_vm._v("Title")]),
-            _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.currentPost.title,
-                  expression: "currentPost.title"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", id: "title" },
-              domProps: { value: _vm.currentPost.title },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+  return _c("div", [
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "content" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "item" }, [
+          _c("form", { staticClass: "card" }, [
+            _c("div", { staticClass: "item__header card-header" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.post.title,
+                      expression: "post.title"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "title",
+                    name: "title",
+                    placeholder: "Title"
+                  },
+                  domProps: { value: _vm.post.title },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.post, "title", $event.target.value)
+                    }
                   }
-                  _vm.$set(_vm.currentPost, "title", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _c("label", { attrs: { for: "body" } }, [_vm._v("Description")]),
+                })
+              ])
+            ]),
             _vm._v(" "),
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.currentPost.body,
-                  expression: "currentPost.body"
-                }
-              ],
-              staticClass: "form-control",
-              attrs: { type: "text", id: "body" },
-              domProps: { value: _vm.currentPost.body },
-              on: {
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
+            _c("div", { staticClass: "item__body card-body" }, [
+              _c("div", { staticClass: "form-group" }, [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.post.body,
+                      expression: "post.body"
+                    }
+                  ],
+                  staticClass: "form-control",
+                  attrs: {
+                    type: "text",
+                    id: "body",
+                    name: "body",
+                    placeholder: "body"
+                  },
+                  domProps: { value: _vm.post.body },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.post, "body", $event.target.value)
+                    }
                   }
-                  _vm.$set(_vm.currentPost, "body", $event.target.value)
-                }
-              }
-            })
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "form-group" }, [
-            _vm._m(0),
-            _vm._v(
-              "\n      " +
-                _vm._s(_vm.currentPost.published ? "Published" : "Pending") +
-                "\n    "
-            )
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12 col-sm-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.post.user_id,
+                            expression: "post.user_id"
+                          }
+                        ],
+                        ref: "user_id",
+                        staticClass: "form-control",
+                        attrs: { name: "user_id", id: "user_id" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.post,
+                              "user_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.authors, function(d) {
+                        return _c("option", { domProps: { value: d.id } }, [
+                          _vm._v(_vm._s(d.name))
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12 col-sm-6" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.post.user_id,
+                            expression: "post.user_id"
+                          }
+                        ],
+                        ref: "published",
+                        staticClass: "form-control",
+                        attrs: { name: "published", id: "published" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.post,
+                              "user_id",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "" } }, [
+                          _vm._v("Please select one")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "draft" } }, [
+                          _vm._v("Draft")
+                        ]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "published" } }, [
+                          _vm._v("Published")
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(_vm.post.published ? "Published" : "Draft") +
+                        "\n                                "
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "item__footer card-header" }, [
+              _c(
+                "div",
+                {
+                  staticClass:
+                    "item__buttons d-flex justify-content-end align-items-start"
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "m-1 d-block float-right",
+                      attrs: { href: "#", "data-id": "post.id" },
+                      on: { click: _vm.updatePost }
+                    },
+                    [_vm._m(2)]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "a",
+                    {
+                      staticClass: "m-1 d-block float-right",
+                      attrs: { href: "#", "data-id": "post.id" },
+                      on: { click: _vm.deletePost }
+                    },
+                    [_vm._m(3)]
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("p", [_vm._v(_vm._s(_vm.message))])
+            ])
           ])
-        ]),
-        _vm._v(" "),
-        _vm.currentPost.published
-          ? _c(
-              "button",
-              {
-                staticClass: "badge badge-primary mr-2",
-                on: {
-                  click: function($event) {
-                    return _vm.updatePublished(false)
-                  }
-                }
-              },
-              [_vm._v("\n    UnPublish\n  ")]
-            )
-          : _c(
-              "button",
-              {
-                staticClass: "badge badge-primary mr-2",
-                on: {
-                  click: function($event) {
-                    return _vm.updatePublished(true)
-                  }
-                }
-              },
-              [_vm._v("\n    Publish\n  ")]
-            ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "badge badge-danger mr-2",
-            on: { click: _vm.deletePost }
-          },
-          [_vm._v("\n    Delete\n  ")]
-        ),
-        _vm._v(" "),
-        _c(
-          "button",
-          {
-            staticClass: "badge badge-success",
-            attrs: { type: "submit" },
-            on: { click: _vm.updatePost }
-          },
-          [_vm._v("\n    Update\n  ")]
-        ),
-        _vm._v(" "),
-        _c("p", [_vm._v(_vm._s(_vm.message))])
+        ])
       ])
-    : _c("div", [
-        _c("br"),
-        _vm._v(" "),
-        _c("p", [_vm._v("Please click on a Post...")])
-      ])
+    ])
+  ])
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-sm-6" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "/admin/dashboard" } }, [
+                  _vm._v("Home")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item active" }, [
+                _vm._v("Posts")
+              ])
+            ])
+          ])
+        ])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
     return _c("label", [_c("strong", [_vm._v("Status:")])])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "btn btn-sm btn-warning text-light d-flex align-items-center justify-content-between",
+        attrs: { type: "button" }
+      },
+      [
+        _vm._v("\n                                    Update "),
+        _c("i", { staticClass: "fa fa-edit" })
+      ]
+    )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass:
+          "btn btn-sm btn-danger d-flex align-items-center justify-content-between",
+        attrs: { type: "button" }
+      },
+      [
+        _vm._v("\n                                    Delete "),
+        _c("i", { staticClass: "fas fa-trash" })
+      ]
+    )
   }
 ]
 render._withStripped = true

@@ -37363,8 +37363,8 @@ readers do not read off random characters that represent icons */
   width: auto;
 }
 
-.table img {
-  max-width: 150px;
+#app .content-wrapper > div {
+  padding: 0 20px 20px 20px;
 }
 
 .items__header .card-tools {
@@ -37375,5 +37375,16 @@ readers do not read off random characters that represent icons */
 
 .items__header h1 {
   width: 250px;
+}
+
+.items__body__buttons i {
+  height: 15px;
+}
+
+.items__body .table img {
+  max-width: 150px;
+  max-height: 100px;
+  height: auto;
+  width: auto;
 }
 

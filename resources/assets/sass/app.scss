@@ -15,9 +15,11 @@
 // AdminLTE
 @import '~admin-lte/dist/css/adminlte.css';
 
-.table{
-    img{
-        max-width: 150px;
+#app{
+    .content-wrapper{
+        > div{
+            padding: 0 20px 20px 20px;
+        }
     }
 }
 
@@ -33,6 +35,18 @@
         }
     }
     &__body{
-
+        &__buttons{
+            i{
+                height: 15px;
+            }
+        }
+        .table{
+            img{
+                max-width: 150px;
+                max-height: 100px;
+                height: auto;
+                width: auto;
+            }
+        }
     }
 }

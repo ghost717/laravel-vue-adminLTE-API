@@ -64,22 +64,22 @@
                                         <td class="col"><img v-bind:src="'../storage/' + post.image" /></td>
                                         <td class="col">{{post.author.name}}</td>
                                         <td class="col">{{post.created_at}}</td>
-                                        <td class="col buttons d-flex justify-content-end align-posts-center">
+                                        <td class="col items__body__buttons d-flex justify-content-end align-items-start">
                                             <!-- <a :href="'/admin/posts/' + post.id" class="m-1 d-block float-right" data-id="post.id"> -->
                                             <router-link :to="{ name: 'post-details', params: { id: post.id } }" class="m-1 d-block float-right">
                                                 <button type="button" class="btn btn-sm btn-primary  d-flex align-items-center justify-content-between">
-                                                    Show <i class="fas fa-loop"></i>
+                                                    <i class="fas fa-eye"></i>
                                                 </button>
                                             </router-link>
                                             <!-- </a> -->
                                             <a href="#" class="m-1 d-block float-right" data-id="post.id" @click="editModalWindow(post)">
                                                 <button type="button" class="btn btn-sm btn-warning text-light d-flex align-items-center justify-content-between">
-                                                    Update <i class="fa fa-edit"></i>
+                                                    <i class="fa fa-edit"></i>
                                                 </button>
                                             </a>
                                             <a href="#" class="m-1 d-block float-right" data-id="post.id" @click="deletePost(post.id)">
                                                 <button type="button" class="btn btn-sm btn-danger d-flex align-items-center justify-content-between">
-                                                    Delete <i class="fas fa-trash"></i>
+                                                    <i class="fas fa-trash"></i>
                                                 </button>
                                             </a>
                                         </td>

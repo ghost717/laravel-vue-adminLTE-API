@@ -450,7 +450,7 @@ var render = function() {
                           "td",
                           {
                             staticClass:
-                              "col buttons d-flex justify-content-end align-posts-center"
+                              "col items__body__buttons d-flex justify-content-end align-items-start"
                           },
                           [
                             _c(
@@ -472,12 +472,7 @@ var render = function() {
                                       "btn btn-sm btn-primary  d-flex align-items-center justify-content-between",
                                     attrs: { type: "button" }
                                   },
-                                  [
-                                    _vm._v(
-                                      "\n                                                Show "
-                                    ),
-                                    _c("i", { staticClass: "fas fa-loop" })
-                                  ]
+                                  [_c("i", { staticClass: "fas fa-eye" })]
                                 )
                               ]
                             ),
@@ -897,10 +892,7 @@ var staticRenderFns = [
           "btn btn-sm btn-warning text-light d-flex align-items-center justify-content-between",
         attrs: { type: "button" }
       },
-      [
-        _vm._v("\n                                                Update "),
-        _c("i", { staticClass: "fa fa-edit" })
-      ]
+      [_c("i", { staticClass: "fa fa-edit" })]
     )
   },
   function() {
@@ -914,10 +906,7 @@ var staticRenderFns = [
           "btn btn-sm btn-danger d-flex align-items-center justify-content-between",
         attrs: { type: "button" }
       },
-      [
-        _vm._v("\n                                                Delete "),
-        _c("i", { staticClass: "fas fa-trash" })
-      ]
+      [_c("i", { staticClass: "fas fa-trash" })]
     )
   },
   function() {

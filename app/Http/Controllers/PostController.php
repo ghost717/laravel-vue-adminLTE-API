@@ -41,8 +41,8 @@ class PostController extends Controller
 
         $post        = $request->isMethod('put') ? Post::findOrFail($request->id) : new Post;
         $post->id    = $request->input('id');
-        $post->user_id = Auth::user()->id;
-        // $post->user_id = $request->user_id;
+        // $post->user_id = Auth::user()->id;
+        $post->user_id = $request->user_id;
 
         if ($request->hasFile('image')) {
             $imagePath = request('image')->store('/uploads/posts', 'public');
