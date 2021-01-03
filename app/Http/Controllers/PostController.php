@@ -35,7 +35,7 @@ class PostController extends Controller
     {
         $this->validate($request, [
             'title' => 'required',
-            // 'user_id' => 'required',
+            'user_id' => 'required',
             // 'image' => 'mimes:jpeg,png,jpg,gif,svg',
         ]);
 
@@ -44,6 +44,7 @@ class PostController extends Controller
         // $post->user_id = Auth::user()->id;
         $post->user_id = $request->user_id;
 
+        // dd(request('image'));
         if ($request->hasFile('image')) {
             $imagePath = request('image')->store('/uploads/posts', 'public');
             // $image = $request->file('image');
@@ -56,7 +57,7 @@ class PostController extends Controller
 
         $post->title = $request->title;
         $post->body = $request->body;
-
+        print_r($post);
         if ($post->save()) {
             return new PostResource($post);
         }

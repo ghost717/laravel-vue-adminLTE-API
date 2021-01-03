@@ -167,6 +167,13 @@ __webpack_require__.r(__webpack_exports__);
     updatePost: function updatePost() {
       var _this4 = this;
 
+      // const data = new FormData();
+      // data.append("title", this.form.title);
+      // data.append("body", this.form.body);
+      // data.append("user_id", this.form.user_id);
+      // data.append("image", this.$refs.image.files[0]);
+      // data.append("image", this.form.image);
+      console.log(this.form);
       this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.post.id, this.post).then(function (response) {
         // console.log(response.data);
@@ -598,7 +605,7 @@ var DataService = /*#__PURE__*/function () {
     }
   }, {
     key: "update",
-    value: function update(id, data) {
+    value: function update(data) {
       // return http.put(`/posts/${id}`, data);
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].put('/posts', data);
     }

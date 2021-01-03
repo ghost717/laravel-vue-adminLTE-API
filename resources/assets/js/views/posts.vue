@@ -130,11 +130,15 @@
                                         <input v-model="form.body" type="text" name="body" ref="body" placeholder="body" class="form-control" :class="{ 'is-invalid': form.errors.has('comment') }">
                                         <has-error :form="form" field="body"></has-error>
                                     </div>
-                                    <div class="form-group">
+                                    <!-- <div class="form-group">
                                         <div class="custom-file mb-3">
                                             <input type="file" ref="image" name="image" class="custom-file-input" id="image" required>
                                             <label class="custom-file-label" >Choose file...</label>
                                         </div>
+                                    </div> -->
+                                    <div class="form-group">
+                                        <input type="file" name="image" class="form-control-file" id="image" @change="onFileChange">
+                                        <img v-bind:src="imagePreview" width="100" height="100" v-show="showPreview"/>
                                     </div>
                                     <!-- <div class="form-group">
                                         <select name="completed" v-model="form.completed" ref="completed" id="completed" class="form-control">
@@ -181,6 +185,8 @@ export default {
             authors: [],
             // currentPost: null,
             // currentIndex: -1,
+            imagePreview: null,
+            showPreview: false,
             search: "",
             editMode: false,
             next: null,
@@ -195,6 +201,23 @@ export default {
         };
     },
     methods: {
+        onFileChange(event){
+            this.form.image = event.target.files[0];
+
+            let reader  = new FileReader();
+
+            reader.addEventListener("load", function () {
+                this.showPreview = true;
+                this.imagePreview = reader.result;
+            }.bind(this), false);
+
+            if( this.form.image ){
+                if ( /\.(jpe?g|png|gif)$/i.test( this.form.image.name ) ) {
+                    console.log("here");
+                    reader.readAsDataURL( this.form.image );
+                }
+            }
+        },
         openModalWindow(){
             this.editMode = false
             this.form.reset();
@@ -208,7 +231,7 @@ export default {
             this.form.user_id = post.user_id;
             this.form.title = post.title;
             this.form.body = post.body;
-            this.form.image = this.$refs.image.files[0];//post.image;
+            // this.form.image = this.$refs.image.files[0];//post.image;
         },
         getAuthors(address) {
             axios.get(address ? address : "/api/users").then(response => {
@@ -221,7 +244,8 @@ export default {
             data.append("title", this.form.title);
             data.append("body", this.form.body);
             data.append("user_id", this.form.user_id);
-            data.append("image", this.$refs.image.files[0]);
+            // data.append("image", this.$refs.image.files[0]);
+            data.append("image", this.form.image);
 
             console.log(data);
             // console.log(this.$refs.image.files[0]);
@@ -244,10 +268,12 @@ export default {
             data.append("title", this.form.title);
             data.append("body", this.form.body);
             data.append("user_id", this.form.user_id);
-            data.append("image", this.$refs.image.files[0]);
-            console.log(data);
+            // data.append("image", this.$refs.image.files[0]);
+            data.append("image", this.form.image);
+            console.log(this.form);
+
             this.$Progress.start();
-            PostDataService.update(this.form.id, this.form)
+            PostDataService.update(this.form)
             .then(response => {
                 // console.log(response.data);
                 // this.message = 'The post was updated successfully!';

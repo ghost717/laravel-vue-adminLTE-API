@@ -182,6 +182,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "posts-list",
@@ -191,6 +195,8 @@ __webpack_require__.r(__webpack_exports__);
       authors: [],
       // currentPost: null,
       // currentIndex: -1,
+      imagePreview: null,
+      showPreview: false,
       search: "",
       editMode: false,
       next: null,
@@ -205,6 +211,21 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    onFileChange: function onFileChange(event) {
+      this.form.image = event.target.files[0];
+      var reader = new FileReader();
+      reader.addEventListener("load", function () {
+        this.showPreview = true;
+        this.imagePreview = reader.result;
+      }.bind(this), false);
+
+      if (this.form.image) {
+        if (/\.(jpe?g|png|gif)$/i.test(this.form.image.name)) {
+          console.log("here");
+          reader.readAsDataURL(this.form.image);
+        }
+      }
+    },
     openModalWindow: function openModalWindow() {
       this.editMode = false;
       this.form.reset();
@@ -217,8 +238,7 @@ __webpack_require__.r(__webpack_exports__);
       this.form.id = post.id;
       this.form.user_id = post.user_id;
       this.form.title = post.title;
-      this.form.body = post.body;
-      this.form.image = this.$refs.image.files[0]; //post.image;
+      this.form.body = post.body; // this.form.image = this.$refs.image.files[0];//post.image;
     },
     getAuthors: function getAuthors(address) {
       var _this = this;
@@ -234,8 +254,9 @@ __webpack_require__.r(__webpack_exports__);
       var data = new FormData();
       data.append("title", this.form.title);
       data.append("body", this.form.body);
-      data.append("user_id", this.form.user_id);
-      data.append("image", this.$refs.image.files[0]);
+      data.append("user_id", this.form.user_id); // data.append("image", this.$refs.image.files[0]);
+
+      data.append("image", this.form.image);
       console.log(data); // console.log(this.$refs.image.files[0]);
 
       this.$Progress.start();
@@ -258,11 +279,12 @@ __webpack_require__.r(__webpack_exports__);
       data.append("id", this.form.id);
       data.append("title", this.form.title);
       data.append("body", this.form.body);
-      data.append("user_id", this.form.user_id);
-      data.append("image", this.$refs.image.files[0]);
-      console.log(data);
+      data.append("user_id", this.form.user_id); // data.append("image", this.$refs.image.files[0]);
+
+      data.append("image", this.form.image);
+      console.log(this.form);
       this.$Progress.start();
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.form.id, this.form).then(function (response) {
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].update(this.form).then(function (response) {
         // console.log(response.data);
         // this.message = 'The post was updated successfully!';
         _this3.retrievePosts();
@@ -768,22 +790,27 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
-                      _c("div", { staticClass: "custom-file mb-3" }, [
-                        _c("input", {
-                          ref: "image",
-                          staticClass: "custom-file-input",
-                          attrs: {
-                            type: "file",
-                            name: "image",
-                            id: "image",
-                            required: ""
+                      _c("input", {
+                        staticClass: "form-control-file",
+                        attrs: { type: "file", name: "image", id: "image" },
+                        on: { change: _vm.onFileChange }
+                      }),
+                      _vm._v(" "),
+                      _c("img", {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showPreview,
+                            expression: "showPreview"
                           }
-                        }),
-                        _vm._v(" "),
-                        _c("label", { staticClass: "custom-file-label" }, [
-                          _vm._v("Choose file...")
-                        ])
-                      ])
+                        ],
+                        attrs: {
+                          src: _vm.imagePreview,
+                          width: "100",
+                          height: "100"
+                        }
+                      })
                     ])
                   ]),
                   _vm._v(" "),
@@ -1002,7 +1029,7 @@ var DataService = /*#__PURE__*/function () {
     }
   }, {
     key: "update",
-    value: function update(id, data) {
+    value: function update(data) {
       // return http.put(`/posts/${id}`, data);
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].put('/posts', data);
     }

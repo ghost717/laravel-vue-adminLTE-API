@@ -152,6 +152,14 @@ export default {
             });
         },
         updatePost() {
+            // const data = new FormData();
+            // data.append("title", this.form.title);
+            // data.append("body", this.form.body);
+            // data.append("user_id", this.form.user_id);
+            // data.append("image", this.$refs.image.files[0]);
+            // data.append("image", this.form.image);
+            console.log(this.form);
+
             this.$Progress.start();
             PostDataService.update(this.post.id, this.post)
             .then(response => {

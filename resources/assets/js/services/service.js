@@ -13,7 +13,7 @@ class DataService {
     return http.post('/posts', data);
   }
 
-  update(id, data) {
+  update(data) {
     // return http.put(`/posts/${id}`, data);
     return http.put('/posts', data);
   }
