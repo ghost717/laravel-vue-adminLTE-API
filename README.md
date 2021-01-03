@@ -33,3 +33,11 @@
 #### Frontend
 
 - https://bezkoder.com/vue-js-crud-app/
+
+
+#### TODOS
+
+- wyszukiwarka
+- ikonki
+- widok pojedynczego wpisu
+- upload obrazkow
