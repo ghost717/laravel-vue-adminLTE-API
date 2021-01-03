@@ -23,11 +23,17 @@
 
 ### Installation
 
+CLONE REPO
+
 ```bash
 
-CLONE & INSTALL REPO
-
 > git clone https://github.com/ghost717/wp-adminLTE-api project
+
+```
+
+INSTALL DEPEDENCIES
+
+```bash
 
 > cd project
 
@@ -35,11 +41,17 @@ CLONE & INSTALL REPO
 
 > npm install
 
+```
+
+CONFIG & INSTALL DB
+
+```bash
+
 > cp -r .env.example .env
 
-> php artisan key:generate
+> php artisan migrate:fresh --seed
 
-> php artisan migration:fresh --seed
+> php artisan key:generate
 
 ```
 

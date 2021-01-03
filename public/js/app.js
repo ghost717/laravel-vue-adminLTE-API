@@ -54890,7 +54890,7 @@ var routes = [{
   path: '/dashboard',
   component: __webpack_require__(/*! ./views/dashboard */ "./resources/assets/js/views/dashboard.vue")["default"]
 }, {
-  path: "/",
+  path: "/users",
   alias: "/users",
   name: "users",
   component: function component() {
@@ -54903,7 +54903,7 @@ var routes = [{
     return __webpack_require__.e(/*! import() */ 2).then(__webpack_require__.bind(null, /*! ./views/user */ "./resources/assets/js/views/user.vue"));
   }
 }, {
-  path: "/",
+  path: "/posts",
   alias: "/posts",
   name: "posts",
   component: function component() {
