@@ -29,6 +29,7 @@ Route::prefix('api')->middleware('auth')->group(function () {
     Route::post('posts', 'PostController@store');
     Route::put('posts', 'PostController@store');
     Route::delete('posts/{id}', 'PostController@destroy');
+    // Route::delete('posts', 'PostController@destroy');
 
     Route::get('users', 'UsersController@index');
     Route::get('user/{id}', 'UsersController@show');
