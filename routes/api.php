@@ -19,6 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::apiResource('posts', 'PostController');
 Route::apiResource('users', 'UsersController');
+Route::apiResource('tasks', 'TasksController');
 
 // Route::get('posts', 'PostController@index');
 // Route::get('posts/{id}', 'PostController@show');
