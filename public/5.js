@@ -96,6 +96,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "task",
@@ -103,6 +133,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       task: null,
       authors: [],
+      devs: [],
       message: ''
     };
   },
@@ -112,6 +143,7 @@ __webpack_require__.r(__webpack_exports__);
 
       axios.get(address ? address : "/api/users").then(function (response) {
         _this.authors = response.data.data;
+        _this.devs = response.data.data;
       });
     },
     getTask: function getTask(id) {
@@ -181,112 +213,71 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "content-header" }, [
-      _c("div", { staticClass: "container-fluid" }, [
-        _c("div", { staticClass: "row mb-2" }, [
-          _c("div", { staticClass: "col-sm-6" }, [
-            _c("h1", { staticClass: "m-0 text-dark" }, [
-              _vm._v(
-                "#" + _vm._s(_vm.task.id) + " - " + _vm._s(_vm.task.title) + " "
-              )
-            ])
-          ]),
-          _vm._v(" "),
-          _vm._m(0)
-        ])
-      ])
-    ]),
+    _vm._m(0),
     _vm._v(" "),
     _c("div", { staticClass: "content" }, [
       _c("div", { staticClass: "container-fluid" }, [
         _c("div", { staticClass: "item" }, [
           _c("form", { staticClass: "card" }, [
             _c("div", { staticClass: "item__header card-header" }, [
-              _c(
-                "div",
-                { staticClass: "form-group" },
-                [
-                  _c("input", {
-                    directives: [
+              _c("div", { staticClass: "row" }, [
+                _c(
+                  "div",
+                  {
+                    staticClass:
+                      "col-12 d-flex justify-content-between align-items-center mb-5"
+                  },
+                  [
+                    _c("h1", { staticClass: "m-0 text-dark" }, [
+                      _vm._v(
+                        "#" +
+                          _vm._s(_vm.task.id) +
+                          " - " +
+                          _vm._s(_vm.task.title) +
+                          " "
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.task.title,
-                        expression: "task.title"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: {
-                      type: "text",
-                      id: "title",
-                      name: "title",
-                      placeholder: "Title"
-                    },
-                    domProps: { value: _vm.task.title },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(_vm.task, "title", $event.target.value)
-                      }
-                    }
-                  }),
-                  _vm._v(" "),
-                  _c("has-error", { attrs: { form: _vm.form, field: "title" } })
-                ],
-                1
-              )
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "item__body card-body" }, [
-              _c("div", { staticClass: "row" }, [
-                _c("div", { staticClass: "col-12 col-sm-8" }, [
-                  _c(
-                    "div",
-                    { staticClass: "form-group" },
-                    [
-                      _c(
-                        "textarea",
-                        {
-                          directives: [
-                            {
-                              name: "model",
-                              rawName: "v-model",
-                              value: _vm.task.comment,
-                              expression: "task.comment"
-                            }
-                          ],
-                          staticClass: "form-control",
-                          attrs: { name: "comment", id: "comment" },
-                          domProps: { value: _vm.task.comment },
-                          on: {
-                            input: function($event) {
-                              if ($event.target.composing) {
-                                return
-                              }
-                              _vm.$set(_vm.task, "comment", $event.target.value)
-                            }
-                          }
-                        },
-                        [_vm._v(_vm._s(_vm.task.comment))]
-                      ),
-                      _vm._v(" "),
-                      _c("has-error", {
-                        attrs: { form: _vm.form, field: "comment" }
-                      })
-                    ],
-                    1
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "row" }, [
+                        staticClass:
+                          "item__buttons d-flex justify-content-end align-items-start"
+                      },
+                      [
+                        _c(
+                          "a",
+                          {
+                            staticClass: "m-1 d-block float-right",
+                            attrs: { href: "#", "data-id": "task.id" },
+                            on: { click: _vm.updateTask }
+                          },
+                          [_vm._m(1)]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "a",
+                          {
+                            staticClass: "m-1 d-block float-right",
+                            attrs: { href: "#", "data-id": "task.id" },
+                            on: { click: _vm.deleteTask }
+                          },
+                          [_vm._m(2)]
+                        )
+                      ]
+                    )
+                  ]
+                ),
+                _vm._v(" "),
                 _c("div", { staticClass: "col-12 col-sm-6" }, [
                   _c(
                     "div",
                     { staticClass: "form-group" },
                     [
+                      _c("label", { attrs: { for: "user_id" } }, [
+                        _vm._v("Author")
+                      ]),
+                      _vm._v(" "),
                       _c(
                         "select",
                         {
@@ -338,7 +329,165 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "col-12 col-sm-6" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { attrs: { for: "dev_id" } }, [
+                        _vm._v("Developer")
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.task.dev_id,
+                              expression: "task.dev_id"
+                            }
+                          ],
+                          ref: "dev_id",
+                          staticClass: "form-control",
+                          attrs: { name: "dev_id", id: "dev_id" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.task,
+                                "dev_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.authors, function(d) {
+                          return _c("option", { domProps: { value: d.id } }, [
+                            _vm._v(_vm._s(d.name))
+                          ])
+                        }),
+                        0
+                      ),
+                      _vm._v(" "),
+                      _c("has-error", {
+                        attrs: { form: _vm.form, field: "dev_id" }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12" }, [
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { attrs: { for: "title" } }, [
+                        _vm._v("Title")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.task.title,
+                            expression: "task.title"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: {
+                          type: "text",
+                          id: "title",
+                          name: "title",
+                          placeholder: "Title"
+                        },
+                        domProps: { value: _vm.task.title },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.task, "title", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("has-error", {
+                        attrs: { form: _vm.form, field: "title" }
+                      })
+                    ],
+                    1
+                  )
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "item__body card-body" }, [
+              _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "col-12 col-sm-8" }, [
+                  _c("label", { attrs: { for: "comment" } }, [
+                    _vm._v("Content")
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c(
+                        "textarea",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.task.comment,
+                              expression: "task.comment"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { name: "comment", id: "comment" },
+                          domProps: { value: _vm.task.comment },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(_vm.task, "comment", $event.target.value)
+                            }
+                          }
+                        },
+                        [_vm._v(_vm._s(_vm.task.comment))]
+                      ),
+                      _vm._v(" "),
+                      _c("has-error", {
+                        attrs: { form: _vm.form, field: "comment" }
+                      })
+                    ],
+                    1
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "col-12 col-sm-4" }, [
                   _c("div", { staticClass: "form-group" }, [
+                    _vm._m(3),
+                    _vm._v(
+                      "\n                                    " +
+                        _vm._s(
+                          _vm.task.completed ? "Completed" : "No completed"
+                        ) +
+                        "\n                                    "
+                    ),
                     _c(
                       "select",
                       {
@@ -346,13 +495,13 @@ var render = function() {
                           {
                             name: "model",
                             rawName: "v-model",
-                            value: _vm.task.user_id,
-                            expression: "task.user_id"
+                            value: _vm.task.completed,
+                            expression: "task.completed"
                           }
                         ],
-                        ref: "published",
+                        ref: "completed",
                         staticClass: "form-control",
-                        attrs: { name: "published", id: "published" },
+                        attrs: { name: "completed", id: "completed" },
                         on: {
                           change: function($event) {
                             var $$selectedVal = Array.prototype.filter
@@ -365,7 +514,7 @@ var render = function() {
                               })
                             _vm.$set(
                               _vm.task,
-                              "user_id",
+                              "completed",
                               $event.target.multiple
                                 ? $$selectedVal
                                 : $$selectedVal[0]
@@ -374,25 +523,103 @@ var render = function() {
                         }
                       },
                       [
-                        _c("option", { attrs: { value: "" } }, [
-                          _vm._v("Please select one")
+                        _c("option", { attrs: { value: "0" } }, [_vm._v("No")]),
+                        _vm._v(" "),
+                        _c("option", { attrs: { value: "1" } }, [_vm._v("Yes")])
+                      ]
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    { staticClass: "form-group" },
+                    [
+                      _c("label", { attrs: { for: "deadline" } }, [
+                        _vm._v("Deadline")
+                      ]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.task.deadline,
+                            expression: "task.deadline"
+                          }
+                        ],
+                        ref: "deadline",
+                        staticClass: "form-control",
+                        attrs: { type: "date", name: "deadline" },
+                        domProps: { value: _vm.task.deadline },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(_vm.task, "deadline", $event.target.value)
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("has-error", {
+                        attrs: { form: _vm.form, field: "deadline" }
+                      })
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", { attrs: { for: "priority" } }, [
+                      _vm._v("Priority")
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
+                      {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.task.priority,
+                            expression: "task.priority"
+                          }
+                        ],
+                        ref: "priority",
+                        staticClass: "form-control",
+                        attrs: { name: "priority", id: "priority" },
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.task,
+                              "priority",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      [
+                        _c("option", { attrs: { value: "nopriority" } }, [
+                          _vm._v("No priority")
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "draft" } }, [
-                          _vm._v("Draft")
+                        _c("option", { attrs: { value: "low" } }, [
+                          _vm._v("Low")
                         ]),
                         _vm._v(" "),
-                        _c("option", { attrs: { value: "published" } }, [
-                          _vm._v("Published")
+                        _c("option", { attrs: { value: "high" } }, [
+                          _vm._v("High")
                         ])
                       ]
-                    ),
-                    _vm._v(" "),
-                    _vm._m(1),
-                    _vm._v(
-                      "\n                                    " +
-                        _vm._s(_vm.task.published ? "Published" : "Draft") +
-                        "\n                                "
                     )
                   ])
                 ])
@@ -400,35 +627,6 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "item__footer card-header" }, [
-              _c(
-                "div",
-                {
-                  staticClass:
-                    "item__buttons d-flex justify-content-end align-items-start"
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "m-1 d-block float-right",
-                      attrs: { href: "#", "data-id": "task.id" },
-                      on: { click: _vm.updateTask }
-                    },
-                    [_vm._m(2)]
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "a",
-                    {
-                      staticClass: "m-1 d-block float-right",
-                      attrs: { href: "#", "data-id": "task.id" },
-                      on: { click: _vm.deleteTask }
-                    },
-                    [_vm._m(3)]
-                  )
-                ]
-              ),
-              _vm._v(" "),
               _c("p", [_vm._v(_vm._s(_vm.message))])
             ])
           ])
@@ -442,21 +640,27 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-sm-6" }, [
-      _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
-        _c("li", { staticClass: "breadcrumb-item" }, [
-          _c("a", { attrs: { href: "/admin/dashboard" } }, [_vm._v("Home")])
-        ]),
-        _vm._v(" "),
-        _c("li", { staticClass: "breadcrumb-item active" }, [_vm._v("Tasks")])
+    return _c("div", { staticClass: "content-header" }, [
+      _c("div", { staticClass: "container-fluid" }, [
+        _c("div", { staticClass: "row mb-2" }, [
+          _c("div", { staticClass: "col-sm-6" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "col-sm-6" }, [
+            _c("ol", { staticClass: "breadcrumb float-sm-right" }, [
+              _c("li", { staticClass: "breadcrumb-item" }, [
+                _c("a", { attrs: { href: "/admin/dashboard" } }, [
+                  _vm._v("Home")
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "breadcrumb-item active" }, [
+                _vm._v("Tasks")
+              ])
+            ])
+          ])
+        ])
       ])
     ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("label", [_c("strong", [_vm._v("Status:")])])
   },
   function() {
     var _vm = this
@@ -470,7 +674,7 @@ var staticRenderFns = [
         attrs: { type: "button" }
       },
       [
-        _vm._v("\n                                    Update "),
+        _vm._v("\n                                            Update "),
         _c("i", { staticClass: "fa fa-edit" })
       ]
     )
@@ -487,10 +691,18 @@ var staticRenderFns = [
         attrs: { type: "button" }
       },
       [
-        _vm._v("\n                                    Delete "),
+        _vm._v("\n                                            Delete "),
         _c("i", { staticClass: "fas fa-trash" })
       ]
     )
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "completed" } }, [
+      _c("strong", [_vm._v("Status:")])
+    ])
   }
 ]
 render._withStripped = true

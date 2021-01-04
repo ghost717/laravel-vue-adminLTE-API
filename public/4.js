@@ -176,46 +176,31 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "tasks-list",
   data: function data() {
     return {
       tasks: [],
-      authors: [],
-      // currentTask: null,
-      // currentIndex: -1,
-      imagePreview: null,
-      showPreview: false,
+      devs: [],
       search: "",
       editMode: false,
       next: null,
       prev: null,
       form: new Form({
         id: '',
-        user_id: '',
+        // user_id: '',
+        dev_id: '',
         title: '',
-        body: '',
-        image: ''
+        comment: '',
+        completed: '',
+        deadline: '',
+        priority: ''
       })
     };
   },
   methods: {
-    onFileChange: function onFileChange(event) {
-      this.form.image = event.target.files[0];
-      var reader = new FileReader();
-      reader.addEventListener("load", function () {
-        this.showPreview = true;
-        this.imagePreview = reader.result;
-      }.bind(this), false);
-
-      if (this.form.image) {
-        if (/\.(jpe?g|png|gif)$/i.test(this.form.image.name)) {
-          console.log("here");
-          reader.readAsDataURL(this.form.image);
-        }
-      }
-    },
     openModalWindow: function openModalWindow() {
       this.editMode = false;
       this.form.reset();
@@ -226,31 +211,26 @@ __webpack_require__.r(__webpack_exports__);
       this.form.reset();
       $('#addNew').modal('show');
       this.form.id = task.id;
-      this.form.user_id = task.user_id;
+      this.form.dev_id = task.dev_id;
       this.form.title = task.title;
-      this.form.body = task.body; // this.form.image = this.$refs.image.files[0];//task.image;
+      this.form.comment = task.comment;
+      this.form.completed = task.completed;
+      this.form.deadline = task.deadline;
+      this.form.priority = task.priority;
     },
     getAuthors: function getAuthors(address) {
       var _this = this;
 
       axios.get(address ? address : "/api/users").then(function (response) {
-        _this.authors = response.data.data;
+        _this.devs = response.data.data;
       });
     },
     saveTask: function saveTask() {
       var _this2 = this;
 
+      console.log(this.form);
       this.$Progress.start();
-      var data = new FormData();
-      data.append("title", this.form.title);
-      data.append("body", this.form.body);
-      data.append("user_id", this.form.user_id); // data.append("image", this.$refs.image.files[0]);
-
-      data.append("image", this.form.image);
-      console.log(data); // console.log(this.$refs.image.files[0]);
-
-      this.$Progress.start();
-      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].createTask(data).then(function (response) {
+      _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].createTask(this.form).then(function (response) {
         // this.form.id = response.data.id;
         // console.log(response.data);
         _this2.retrieveTasks();
@@ -265,14 +245,6 @@ __webpack_require__.r(__webpack_exports__);
     updateTask: function updateTask() {
       var _this3 = this;
 
-      var data = new FormData();
-      data.append("id", this.form.id);
-      data.append("title", this.form.title);
-      data.append("body", this.form.body);
-      data.append("user_id", this.form.user_id); // data.append("image", this.$refs.image.files[0]);
-
-      data.append("image", this.form.image);
-      console.log(this.form);
       this.$Progress.start();
       _services_service__WEBPACK_IMPORTED_MODULE_0__["default"].updateTask(this.form).then(function (response) {
         // console.log(response.data);
@@ -445,17 +417,27 @@ var render = function() {
                         ),
                         _vm._v(" "),
                         _c("td", { staticClass: "col" }, [
+                          _vm._v(_vm._s(task.author.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "col" }, [
+                          _vm._v(_vm._s(task.dev.name))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "col" }, [
                           _vm._v(_vm._s(task.title))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "col" }, [
-                          _c("img", {
-                            attrs: { src: "../storage/" + task.image }
-                          })
+                          _vm._v(_vm._s(task.completed))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "col" }, [
-                          _vm._v(_vm._s(task.author.name))
+                          _vm._v(_vm._s(task.priority))
+                        ]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "col" }, [
+                          _vm._v(_vm._s(task.deadline))
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "col" }, [
@@ -651,58 +633,49 @@ var render = function() {
                 },
                 [
                   _c("div", { staticClass: "modal-body" }, [
-                    _c(
-                      "div",
-                      { staticClass: "form-group" },
-                      [
-                        _c(
-                          "select",
-                          {
-                            directives: [
-                              {
-                                name: "model",
-                                rawName: "v-model",
-                                value: _vm.form.user_id,
-                                expression: "form.user_id"
-                              }
-                            ],
-                            ref: "user_id",
-                            staticClass: "form-control",
-                            attrs: { name: "user_id", id: "user_id" },
-                            on: {
-                              change: function($event) {
-                                var $$selectedVal = Array.prototype.filter
-                                  .call($event.target.options, function(o) {
-                                    return o.selected
-                                  })
-                                  .map(function(o) {
-                                    var val = "_value" in o ? o._value : o.value
-                                    return val
-                                  })
-                                _vm.$set(
-                                  _vm.form,
-                                  "user_id",
-                                  $event.target.multiple
-                                    ? $$selectedVal
-                                    : $$selectedVal[0]
-                                )
-                              }
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.dev_id,
+                              expression: "form.dev_id"
                             }
-                          },
-                          _vm._l(_vm.authors, function(d) {
-                            return _c("option", { domProps: { value: d.id } }, [
-                              _vm._v(_vm._s(d.name))
-                            ])
-                          }),
-                          0
-                        ),
-                        _vm._v(" "),
-                        _c("has-error", {
-                          attrs: { form: _vm.form, field: "user_id" }
-                        })
-                      ],
-                      1
-                    ),
+                          ],
+                          ref: "dev_id",
+                          staticClass: "form-control",
+                          attrs: { name: "dev_id", id: "dev_id" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "dev_id",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.devs, function(d) {
+                          return _c("option", { domProps: { value: d.id } }, [
+                            _vm._v(_vm._s(d.name))
+                          ])
+                        }),
+                        0
+                      )
+                    ]),
                     _vm._v(" "),
                     _c(
                       "div",
@@ -752,60 +725,172 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.form.body,
-                              expression: "form.body"
+                              value: _vm.form.comment,
+                              expression: "form.comment"
                             }
                           ],
-                          ref: "body",
+                          ref: "comment",
                           staticClass: "form-control",
                           class: {
                             "is-invalid": _vm.form.errors.has("comment")
                           },
                           attrs: {
                             type: "text",
-                            name: "body",
-                            placeholder: "body"
+                            name: "comment",
+                            placeholder: "comment"
                           },
-                          domProps: { value: _vm.form.body },
+                          domProps: { value: _vm.form.comment },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
                                 return
                               }
-                              _vm.$set(_vm.form, "body", $event.target.value)
+                              _vm.$set(_vm.form, "comment", $event.target.value)
                             }
                           }
                         }),
                         _vm._v(" "),
                         _c("has-error", {
-                          attrs: { form: _vm.form, field: "body" }
+                          attrs: { form: _vm.form, field: "comment" }
                         })
                       ],
                       1
                     ),
                     _vm._v(" "),
                     _c("div", { staticClass: "form-group" }, [
-                      _c("input", {
-                        staticClass: "form-control-file",
-                        attrs: { type: "file", name: "image", id: "image" },
-                        on: { change: _vm.onFileChange }
-                      }),
-                      _vm._v(" "),
-                      _c("img", {
-                        directives: [
-                          {
-                            name: "show",
-                            rawName: "v-show",
-                            value: _vm.showPreview,
-                            expression: "showPreview"
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.completed,
+                              expression: "form.completed"
+                            }
+                          ],
+                          ref: "completed",
+                          staticClass: "form-control",
+                          attrs: { name: "completed", id: "completed" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "completed",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
                           }
-                        ],
-                        attrs: {
-                          src: _vm.imagePreview,
-                          width: "100",
-                          height: "100"
-                        }
-                      })
+                        },
+                        [
+                          _c("option", { attrs: { value: "0" } }, [
+                            _vm._v("No")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "1" } }, [
+                            _vm._v("Yes")
+                          ])
+                        ]
+                      )
+                    ]),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "form-group" },
+                      [
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.deadline,
+                              expression: "form.deadline"
+                            }
+                          ],
+                          ref: "deadline",
+                          staticClass: "form-control",
+                          attrs: { type: "date", name: "deadline" },
+                          domProps: { value: _vm.form.deadline },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.form,
+                                "deadline",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        }),
+                        _vm._v(" "),
+                        _c("has-error", {
+                          attrs: { form: _vm.form, field: "deadline" }
+                        })
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "form-group" }, [
+                      _c(
+                        "select",
+                        {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.form.priority,
+                              expression: "form.priority"
+                            }
+                          ],
+                          ref: "priority",
+                          staticClass: "form-control",
+                          attrs: { name: "priority", id: "priority" },
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.form,
+                                "priority",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        [
+                          _c("option", { attrs: { value: "nopriority" } }, [
+                            _vm._v("No priority")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "low" } }, [
+                            _vm._v("Low")
+                          ]),
+                          _vm._v(" "),
+                          _c("option", { attrs: { value: "high" } }, [
+                            _vm._v("High")
+                          ])
+                        ]
+                      )
                     ])
                   ]),
                   _vm._v(" "),
@@ -897,11 +982,17 @@ var staticRenderFns = [
       _c("tr", { staticClass: "row" }, [
         _c("th", { staticClass: "col border-0" }, [_vm._v("ID")]),
         _vm._v(" "),
+        _c("th", { staticClass: "col border-0" }, [_vm._v("Author")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "col border-0" }, [_vm._v("Dev")]),
+        _vm._v(" "),
         _c("th", { staticClass: "col border-0" }, [_vm._v("Title")]),
         _vm._v(" "),
-        _c("th", { staticClass: "col border-0" }, [_vm._v("Image")]),
+        _c("th", { staticClass: "col border-0" }, [_vm._v("Completed")]),
         _vm._v(" "),
-        _c("th", { staticClass: "col border-0" }, [_vm._v("Author")]),
+        _c("th", { staticClass: "col border-0" }, [_vm._v("Priority")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "col border-0" }, [_vm._v("Deadline")]),
         _vm._v(" "),
         _c("th", { staticClass: "col border-0" }, [_vm._v("Created")]),
         _vm._v(" "),

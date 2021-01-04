@@ -4,7 +4,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">#{{ task.id}} - {{ task.title}} </h1>
+                        <!-- <h1 class="m-0 text-dark">#{{ task.id}} - {{ task.title}} </h1> -->
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <!-- <div class="card-tools">
@@ -25,23 +25,25 @@
                 <div class="item">
                     <form class="card">
                         <div class="item__header card-header">
-                            <div class="form-group">
-                                <input type="text" class="form-control" id="title" name="title" v-model="task.title" placeholder="Title"/>
-                                <has-error :form="form" field="title"></has-error>
-                            </div>
-                        </div>
-                        <div class="item__body card-body">
                             <div class="row">
-                                <div class="col-12 col-sm-8">
-                                    <div class="form-group">
-                                        <textarea name="comment" id="comment" class="form-control" v-model="task.comment">{{task.comment}}</textarea>
-                                        <has-error :form="form" field="comment"></has-error>
+                                <div class="col-12 d-flex justify-content-between align-items-center mb-5">
+                                    <h1 class="m-0 text-dark">#{{ task.id}} - {{ task.title}} </h1>
+                                    <div class="item__buttons d-flex justify-content-end align-items-start">
+                                        <a href="#" class="m-1 d-block float-right" data-id="task.id" @click="updateTask">
+                                            <button type="button" class="btn btn-sm btn-warning text-light d-flex align-items-center justify-content-between">
+                                                Update <i class="fa fa-edit"></i>
+                                            </button>
+                                        </a>
+                                        <a href="#" class="m-1 d-block float-right" data-id="task.id" @click="deleteTask">
+                                            <button type="button" class="btn btn-sm btn-danger d-flex align-items-center justify-content-between">
+                                                Delete <i class="fas fa-trash"></i>
+                                            </button>
+                                        </a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
+                                        <label for="user_id">Author</label>
                                         <select name="user_id" v-model="task.user_id" ref="user_id" id="user_id" class="form-control">
                                             <option v-for="d in authors" :value="d.id">{{ d.name }}</option>
                                         </select>
@@ -50,30 +52,58 @@
                                 </div>
                                 <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                        <select name="published" v-model="task.user_id" ref="published" id="published" class="form-control">
-                                            <option value="">Please select one</option>
-                                            <option value="draft">Draft</option>
-                                            <option value="published">Published</option>
+                                        <label for="dev_id">Developer</label>
+                                        <select name="dev_id" v-model="task.dev_id" ref="dev_id" id="dev_id" class="form-control">
+                                            <option v-for="d in authors" :value="d.id">{{ d.name }}</option>
                                         </select>
-                                        <label><strong>Status:</strong></label>
-                                        {{ task.published ? "Published" : "Draft" }}
+                                        <has-error :form="form" field="dev_id"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="title">Title</label>
+                                        <input type="text" class="form-control" id="title" name="title" v-model="task.title" placeholder="Title"/>
+                                        <has-error :form="form" field="title"></has-error>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="item__body card-body">
+                            <div class="row">
+                                <div class="col-12 col-sm-8">
+                                    <label for="comment">Content</label>
+                                    <div class="form-group">
+                                        <textarea name="comment" id="comment" class="form-control" v-model="task.comment">{{task.comment}}</textarea>
+                                        <has-error :form="form" field="comment"></has-error>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-4">
+                                    <div class="form-group">
+                                        <label for="completed"><strong>Status:</strong></label>
+                                        {{ task.completed ? "Completed" : "No completed" }}
+                                        <select name="completed" v-model="task.completed" ref="completed" id="completed" class="form-control">
+                                            <option value="0">No</option>
+                                            <option value="1">Yes</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="deadline">Deadline</label>
+                                        <!-- <input class="form-control" type="datetime-local" value="" name="date" /> -->
+                                        <input type="date" name="deadline" ref="deadline" v-model="task.deadline" class="form-control">
+                                        <has-error :form="form" field="deadline"></has-error>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="priority">Priority</label>
+                                        <select name="priority" v-model="task.priority" ref="priority" id="priority" class="form-control">
+                                            <option value="nopriority">No priority</option>
+                                            <option value="low">Low</option>
+                                            <option value="high">High</option>
+                                        </select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="item__footer card-header">
-                            <div class="item__buttons d-flex justify-content-end align-items-start">
-                                <a href="#" class="m-1 d-block float-right" data-id="task.id" @click="updateTask">
-                                    <button type="button" class="btn btn-sm btn-warning text-light d-flex align-items-center justify-content-between">
-                                        Update <i class="fa fa-edit"></i>
-                                    </button>
-                                </a>
-                                <a href="#" class="m-1 d-block float-right" data-id="task.id" @click="deleteTask">
-                                    <button type="button" class="btn btn-sm btn-danger d-flex align-items-center justify-content-between">
-                                        Delete <i class="fas fa-trash"></i>
-                                    </button>
-                                </a>
-                            </div>
                             <p>{{ message }}</p>
                         </div>
                     </form>
@@ -93,6 +123,7 @@ export default {
         return {
             task: null,
             authors: [],
+            devs: [],
             message: ''
         };
     },
@@ -100,6 +131,7 @@ export default {
         getAuthors(address) {
             axios.get(address ? address : "/api/users").then(response => {
                 this.authors = response.data.data;
+                this.devs = response.data.data;
             });
         },
         getTask(id) {

@@ -21,7 +21,7 @@ class CreateTasksTable extends Migration
             $table->text('comment')->nullable();
             $table->boolean('completed')->default(false);
             $table->string('deadline')->nullable();
-            $table->integer('priority')->default(0);
+            $table->string('priority')->nullable();
             $table->timestamps();
 
             // $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
