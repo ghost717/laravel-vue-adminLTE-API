@@ -1084,6 +1084,37 @@ var DataService = /*#__PURE__*/function () {
     key: "findPost",
     value: function findPost(title) {
       return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/posts?title=".concat(title));
+    } //tasks
+
+  }, {
+    key: "getAllTasks",
+    value: function getAllTasks(address) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get(address ? address : '/tasks');
+    }
+  }, {
+    key: "getTask",
+    value: function getTask(id) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/tasks/".concat(id));
+    }
+  }, {
+    key: "createTask",
+    value: function createTask(data) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].post('/tasks', data);
+    }
+  }, {
+    key: "updateTask",
+    value: function updateTask(data) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].put('/tasks', data);
+    }
+  }, {
+    key: "deleteTask",
+    value: function deleteTask(id) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/tasks/".concat(id));
+    }
+  }, {
+    key: "findTask",
+    value: function findTask(title) {
+      return _http_common__WEBPACK_IMPORTED_MODULE_0__["default"].get("/tasks?title=".concat(title));
     }
   }]);
 

@@ -54882,9 +54882,6 @@ Vue.use(vue_progressbar__WEBPACK_IMPORTED_MODULE_0___default.a, {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
- // const User = {
-//     template: '<div>User {{ $route.params.id }}</div>'
-// }
 
 var routes = [{
   path: '/dashboard',
@@ -54915,32 +54912,20 @@ var routes = [{
   component: function component() {
     return __webpack_require__.e(/*! import() */ 0).then(__webpack_require__.bind(null, /*! ./views/post */ "./resources/assets/js/views/post.vue"));
   }
-} // {
-//   path: "/posts/add",
-//   name: "add-post",
-//   component: () => import("./views/addPost")
-// }
-// {
-//     path: '/posts',
-//     component: require('./views/posts').default
-// },
-// {
-//     path: '/posts/show',
-//     component: require('./views/post').default,
-//     name: 'posts/show',
-//     props: true
-// },
-// {
-//     path: '/posts/create',
-//     component: require('./views/posts/create').default
-// },
-// {
-//     path: '/posts/update',
-//     name: 'posts/update',
-//     component: require('./views/posts/update').default,
-//     props: true
-// }
-];
+}, {
+  path: "/tasks",
+  alias: "/tasks",
+  name: "tasks",
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ 4).then(__webpack_require__.bind(null, /*! ./views/tasks */ "./resources/assets/js/views/tasks.vue"));
+  }
+}, {
+  path: "/tasks/:id",
+  name: "task-details",
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ 5).then(__webpack_require__.bind(null, /*! ./views/task */ "./resources/assets/js/views/task.vue"));
+  }
+}];
 /* harmony default export */ __webpack_exports__["default"] = (new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   base: '/admin/',
   mode: 'history',

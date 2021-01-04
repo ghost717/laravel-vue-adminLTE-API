@@ -42,7 +42,12 @@
                         <p>Posts</p>
                     </router-link>
                 </li>
-
+                <li class="nav-item">
+                    <router-link tag="a" to="/tasks" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>Tasks</p>
+                    </router-link>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

@@ -51,6 +51,31 @@ class DataService {
     findPost(title) {
         return http.get(`/posts?title=${title}`);
     }
+
+    //tasks
+    getAllTasks(address) {
+        return http.get(address ? address : '/tasks');
+    }
+
+    getTask(id) {
+        return http.get(`/tasks/${id}`);
+    }
+
+    createTask(data) {
+        return http.post('/tasks', data);
+    }
+
+    updateTask(data) {
+        return http.put('/tasks', data);
+    }
+
+    deleteTask(id) {
+        return http.delete(`/tasks/${id}`);
+    }
+
+    findTask(title) {
+        return http.get(`/tasks?title=${title}`);
+    }
 }
 
 export default new DataService();

@@ -1,9 +1,5 @@
 import VueRouter from 'vue-router';
 
-// const User = {
-//     template: '<div>User {{ $route.params.id }}</div>'
-// }
-
 let routes = [
     {
         path: '/dashboard',
@@ -21,41 +17,27 @@ let routes = [
         component: () => import("./views/user")
     },
     {
-      path: "/posts",
-      alias: "/posts",
-      name: "posts",
-      component: () => import("./views/posts")
+        path: "/posts",
+        alias: "/posts",
+        name: "posts",
+         component: () => import("./views/posts")
     },
     {
-      path: "/posts/:id",
-      name: "post-details",
-      component: () => import("./views/post")
+        path: "/posts/:id",
+        name: "post-details",
+        component: () => import("./views/post")
     },
-    // {
-    //   path: "/posts/add",
-    //   name: "add-post",
-    //   component: () => import("./views/addPost")
-    // }
-    // {
-    //     path: '/posts',
-    //     component: require('./views/posts').default
-    // },
-    // {
-    //     path: '/posts/show',
-    //     component: require('./views/post').default,
-    //     name: 'posts/show',
-    //     props: true
-    // },
-    // {
-    //     path: '/posts/create',
-    //     component: require('./views/posts/create').default
-    // },
-    // {
-    //     path: '/posts/update',
-    //     name: 'posts/update',
-    //     component: require('./views/posts/update').default,
-    //     props: true
-    // }
+    {
+        path: "/tasks",
+        alias: "/tasks",
+        name: "tasks",
+        component: () => import("./views/tasks")
+    },
+    {
+        path: "/tasks/:id",
+        name: "task-details",
+        component: () => import("./views/task")
+    },
 ];
 
 
