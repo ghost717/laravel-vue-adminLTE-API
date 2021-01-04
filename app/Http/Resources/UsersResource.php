@@ -23,6 +23,7 @@ class UsersResource extends JsonResource
             'created_at' => (string) $this->created_at,
             'updated_at' => (string) $this->updated_at,
             'posts' => PostResource::collection($this->posts),
+            'tasks' => TasksResource::collection($this->tasks),
         ];
     }
 }

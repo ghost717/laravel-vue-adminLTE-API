@@ -15,7 +15,7 @@ class UsersController extends Controller
 
     public function index()
     {
-        $users = User::with('posts')->orderBy('id', 'DESC')->paginate(5);
+        $users = User::with(['posts', 'tasks'])->orderBy('id', 'DESC')->paginate(5);
 
         return UsersResource::collection($users);
     }
